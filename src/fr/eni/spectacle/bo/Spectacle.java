@@ -11,7 +11,7 @@ public class Spectacle {
 	private String lieu;
 	private Date date;
 	private int placesDisponibles;
-	private List<Reservation> listeReservations;
+	private List<Reservation> listeReservations ;
 	
 	public Spectacle (int idSpectacle, String titre,String artiste, 
 			String lieu , Date date, int placesDisponibles, List<Reservation> listeReservations){
