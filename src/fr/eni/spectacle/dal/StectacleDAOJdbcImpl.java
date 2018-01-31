@@ -3,6 +3,7 @@ package fr.eni.spectacle.dal;
 
 import fr.eni.spectacle.bo.Spectacle;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class StectacleDAOJdbcImpl implements Dao{
         try {
             Class.forName(Settings.getProperty("driverDB"));
             //DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
+
 
             String url = Settings.getProperty("urldb");
             this.connect = DriverManager.getConnection(url, Settings.getProperty("userdb"),Settings.getProperty("passworddb"));
@@ -37,22 +39,23 @@ public class StectacleDAOJdbcImpl implements Dao{
                     "artiste," +
                     "lieu," +
                     "date," +
-                    "place_disponible," +
+                    "places_disponible" +
+                    ")" +
 
                     "VALUES (" +
                     "?,"+//"titre,
                     "?,"+//"artiste,
                     "?,"+//"lieu,
                     "?,"+//"date,\
-                    "?,"+//"place_disponible,
+                    "?"+//"places_disponible,
                     ")";
             PreparedStatement stmt = this.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             stmt.setString(1,a1.getTitre());//"titre,
             stmt.setString(2,a1.getArtiste());//"artiste,
             stmt.setString(3,a1.getLieu());//"lieu,
-            stmt.setDate(4, (Date) a1.getDate());//"date,\
-            stmt.setInt(5,a1.getPlacesDisponibles());//"place_disponible,
+            stmt.setDate(4, a1.getDate());//"date,\
+            stmt.setInt(5,a1.getPlacesDisponibles());//"places_disponible,
 
 // on indique le numero d'id auto genéré dans l'objet article
             int nbRows = stmt.executeUpdate();
@@ -72,19 +75,19 @@ public class StectacleDAOJdbcImpl implements Dao{
         }
     }
 
-public Spectacle selectById(int idSpectacle) throws DALException {
+public Spectacle selectById(int id) throws DALException {
     try{
-        String sql = "SELECT * FROM SPECTACLE WHERE idSpectacle = ?";
+        String sql = "SELECT * FROM SPECTACLE WHERE id = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
 
-        stmt.setInt(1,idSpectacle);//"reference,
+        stmt.setInt(1,id);//"reference,
 
         ResultSet res = stmt.executeQuery();
 
         Spectacle data = null;
 
          if (res.next()){
-                data = new Spectacle(res.getInt("idSpectacle"),res.getString("titre"),res.getString("artiste"),res.getString("lieu"),res.getDate("date"),res.getInt("place_disponible"));
+                data = new Spectacle(res.getInt("id"),res.getString("titre"),res.getString("artiste"),res.getString("lieu"),res.getDate("date"),res.getInt("places_disponible"));
         //on ferme les connections
         stmt.close();
         //connect.close();
@@ -110,8 +113,8 @@ public Spectacle selectById(int idSpectacle) throws DALException {
 //on boucle sur les résultats
             List<Spectacle> data = new ArrayList<>();
             while (res.next()){
-                //data.add(this.selectById(res.getInt("idSpectacle")));
-                data.add(new Spectacle(res.getInt("idSpectacle"),res.getString("titre"),res.getString("artiste"),res.getString("lieu"),res.getDate("date"),res.getInt("place_disponible")));
+                //data.add(this.selectById(res.getInt("id")));
+                data.add(new Spectacle(res.getInt("id"),res.getString("titre"),res.getString("artiste"),res.getString("lieu"),res.getDate("date"),res.getInt("places_disponible")));
 
             }
 
@@ -138,8 +141,8 @@ public Spectacle selectById(int idSpectacle) throws DALException {
 //on boucle sur les résultats
             List<Spectacle> data = new ArrayList<>();
             while (res.next()){
-                //data.add(this.selectById(res.getInt("idSpectacle")));
-                    data.add(new Spectacle(res.getInt("idSpectacle"),res.getString("titre"),res.getString("artiste"),res.getString("lieu"),res.getDate("date"),res.getInt("place_disponible")));
+                //data.add(this.selectById(res.getInt("id")));
+                    data.add(new Spectacle(res.getInt("id"),res.getString("titre"),res.getString("artiste"),res.getString("lieu"),res.getDate("date"),res.getInt("places_disponible")));
 
             }
 
@@ -159,21 +162,21 @@ public Spectacle selectById(int idSpectacle) throws DALException {
     public void update(Object a2) throws DALException {
        Spectacle a1 = (Spectacle) a2;
         try {
-            String sql = "UPDATE SPECTACLE   SET " +
-                    "titre," +
-                    "artiste," +
-                    "lieu," +
-                    "date," +
-                    "place_disponible," +
-                    "WHERE idSpectacle =?"
+            String sql = "UPDATE SPECTACLE  SET " +
+                    "titre =?," +
+                    "artiste =?," +
+                    "lieu =?," +
+                    "date =?," +
+                    "places_disponible =? " +
+                    "WHERE id =?"
                     ;
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
             stmt.setString(1,a1.getTitre());//"titre,
             stmt.setString(2,a1.getArtiste());//"artiste,
             stmt.setString(3,a1.getLieu());//"lieu,
-            stmt.setDate(4, (Date) a1.getDate());//"date,\
-            stmt.setInt(5,a1.getPlacesDisponibles());//"place_disponible,
+            stmt.setDate(4, a1.getDate());//"date,\
+            stmt.setInt(5,a1.getPlacesDisponibles());//"places_disponible,
             stmt.setInt(6,a1.getIdSpectacle());//"id,
 
 
@@ -194,12 +197,12 @@ public Spectacle selectById(int idSpectacle) throws DALException {
 
     }
 
-    public void delete(int idSpectacle) throws DALException {
+    public void delete(int id) throws DALException {
         try {
-        String sql = "DELETE FROM SPECTACLE WHERE idSpectacle = ?";
+        String sql = "DELETE FROM SPECTACLE WHERE id = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
 
-        stmt.setInt(1,idSpectacle);//"reference,
+        stmt.setInt(1,id);//"reference,
 
         stmt.executeUpdate();
             //on ferme les connections

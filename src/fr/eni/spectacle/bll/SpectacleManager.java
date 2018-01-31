@@ -13,12 +13,12 @@ public class SpectacleManager {
 	private static SpectacleManager instance;
 	
 	
-	public SpectacleManager() {
+	public SpectacleManager() throws DALException {
 		//Instancier le Data Access Object
 		daoSpectalce =DaoFactory.getSpectacleDAO();
 	}
 	
-	public static SpectacleManager getInstance() throws BLLException{
+	public static SpectacleManager getInstance() throws BLLException, DALException {
 		if ( SpectacleManager.instance == null){
 			SpectacleManager.instance = new SpectacleManager();
 		}
@@ -31,7 +31,7 @@ public class SpectacleManager {
 			spectacle = daoSpectalce.selectAll();
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération spectacles", e);
+			throw new BLLException("Erreur rï¿½cupï¿½ration spectacles", e);
 		}
 		
 		return spectacle;
