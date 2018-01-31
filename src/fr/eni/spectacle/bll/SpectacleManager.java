@@ -5,7 +5,7 @@ import java.util.List;
 import fr.eni.spectacle.bo.Spectacle;
 import fr.eni.spectacle.dal.DALException;
 import fr.eni.spectacle.dal.Dao;
-import fr.eni.spectacle.dal.DaoFactory;
+import fr.eni.spectacle.dal.DAOFactory;
 import fr.eni.spectacle.dal.StectacleDAOJdbcImpl;
 
 public class SpectacleManager {
@@ -16,7 +16,7 @@ public class SpectacleManager {
 	
 	public SpectacleManager() throws DALException {
 		//Instancier le Data Access Object
-		daoSpectalce =DaoFactory.getSpectacleDAO();
+		daoSpectalce =DAOFactory.getSpectacleDAO();
 	}
 	
 	public static SpectacleManager getInstance() throws BLLException, DALException{
