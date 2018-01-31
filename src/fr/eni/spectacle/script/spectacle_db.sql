@@ -8,7 +8,7 @@ artiste VARCHAR(200) not null,
 lieu Varchar(200),
 date DATE not null,
 places_disponible INT not null,
-CONSTRAINT PK_ID PRIMARY KEY(id)
+CONSTRAINT PK_ID_SPECTACLE PRIMARY KEY(id)
 );
 GO
 
