@@ -125,6 +125,8 @@ fabric.properties
 # Sonarlint plugin
 .idea/sonarlint
 
+.src/fr/eni/spectacle/dal/settings.properties
+
 ### Java ###
 # Compiled class file
 *.class
@@ -169,6 +171,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
 
 
 # End of https://www.gitignore.io/api/java,eclipse,windows,intellij
