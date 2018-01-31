@@ -4,6 +4,7 @@ package fr.eni.spectacle.dal;
 import fr.eni.spectacle.bo.Spectacle;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class AppliTestDAL {
@@ -11,12 +12,13 @@ public class AppliTestDAL {
 	public static void main(String[] args) throws DALException {
 
 		//Déclaration et instanciation de la DAO
-		Dao<Spectacle> stectacleDAO = DaoFactory.getSpectacleDAO();
+		Dao<Spectacle> stectacleDAO = DAOFactory.getSpectacleDAO();
 
 		//Instanciation du jeu d'essai
-		Spectacle a1 = new Spectacle( "star","garou", "nantes", new Date(2018,12,10), 100);
-		Spectacle a2 = new Spectacle(  "test 1","johny", "paris", new Date(2018,05,23), 150);
-		Spectacle a3 = new Spectacle( "test 2","acdc", "lille", new Date(2019,01,20), 200);
+		//Calendar today = new Calendar();
+		Spectacle a1 = new Spectacle( "star","garou", "nantes", new Date(118,05,23), 150);
+		Spectacle a2 = new Spectacle(  "test 1","johny", "paris", new Date(118,05,23), 150);
+		Spectacle a3 = new Spectacle( "test 2","acdc", "lille", new Date(119,01,20), 200);
 
 
 		System.out.println("Ajout des articles... ");

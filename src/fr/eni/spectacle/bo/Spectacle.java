@@ -25,6 +25,7 @@ public class Spectacle {
 		 this.artiste = artiste;
 		 this.lieu = lieu;
 		 this.date = date;
+		 //date.
 		 this.placesDisponibles = placesDisponibles;
 	}
 	

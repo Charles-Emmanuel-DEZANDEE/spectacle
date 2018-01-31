@@ -5,7 +5,7 @@ import java.util.List;
 import fr.eni.spectacle.bo.Spectacle;
 import fr.eni.spectacle.dal.DALException;
 import fr.eni.spectacle.dal.Dao;
-import fr.eni.spectacle.dal.DaoFactory;
+import fr.eni.spectacle.dal.DAOFactory;
 
 public class SpectacleManager {
 
@@ -15,7 +15,7 @@ public class SpectacleManager {
 	
 	public SpectacleManager() throws DALException {
 		//Instancier le Data Access Object
-		daoSpectalce =DaoFactory.getSpectacleDAO();
+		daoSpectalce = DAOFactory.getSpectacleDAO();
 	}
 	
 	public static SpectacleManager getInstance() throws BLLException, DALException {
@@ -32,7 +32,7 @@ public class SpectacleManager {
 			spectacle = daoSpectalce.selectById(idSpectacle);
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération du spectacle par Id", e);
+			throw new BLLException("Erreur rï¿½cupï¿½ration du spectacle par Id", e);
 		}
 		
 		return spectacle;
@@ -44,7 +44,7 @@ public class SpectacleManager {
 			spectacle = daoSpectalce.selectByArtiste(artiste);
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération spectacles par artiste", e);
+			throw new BLLException("Erreur rï¿½cupï¿½ration spectacles par artiste", e);
 		}
 		
 		return spectacle;
