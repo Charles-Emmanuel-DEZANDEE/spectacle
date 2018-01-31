@@ -1,12 +1,13 @@
 package fr.eni.spectacle.dal;
-package fr.eni.spectacle.bo;
 
+
+import fr.eni.spectacle.bo.Spectacle;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StectacleDAOJdbcImpl implements StectacleDAO {
+public class StectacleDAOJdbcImpl {
 
     private  Connection connect;
 
@@ -47,11 +48,11 @@ public class StectacleDAOJdbcImpl implements StectacleDAO {
                     ")";
             PreparedStatement stmt = this.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            stmt.setString(1,a1.getTitre);//"titre,
-            stmt.setString(2,a1.getMarque());//"artiste,
-            stmt.setString(3,a1.getDesignation());//"lieu,
-            stmt.setFloat(4,a1.getPrixUnitaire());//"date,\
-            stmt.setInt(5,a1.getQteStock());//"place_disponible,
+            stmt.setString(1,a1.getTitre());//"titre,
+            stmt.setString(2,a1.getArtiste());//"artiste,
+            stmt.setString(3,a1.getLieu());//"lieu,
+            stmt.setDate(4, (Date) a1.getDate());//"date,\
+            stmt.setInt(5,a1.getPlacesDisponibles());//"place_disponible,
 
 // on indique le numero d'id auto genéré dans l'objet article
             int nbRows = stmt.executeUpdate();
@@ -73,7 +74,7 @@ public class StectacleDAOJdbcImpl implements StectacleDAO {
 
 public Spectacle selectById(Integer idSpectacle) throws DALException {
     try{
-        String sql = "SELECT * FROM ARTICLES WHERE idSpectacle = ?";
+        String sql = "SELECT * FROM SPECTACLE WHERE idSpectacle = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
 
         stmt.setInt(1,idSpectacle);//"reference,
@@ -83,12 +84,7 @@ public Spectacle selectById(Integer idSpectacle) throws DALException {
         Spectacle data = null;
 
          if (res.next()){
-             if (res.getString("type") == "S"){
-                data = new Stylo(res.getInt("idSpectacle"),res.getString("marque"),res.getString("reference"),res.getString("designation"),res.getFloat("prixUnitaire"),res.getInt("qteStock"),res.getString("couleur"));
-            }
-            else {
-                    data = new Ramette(res.getInt("idSpectacle"),res.getString("marque"),res.getString("reference"),res.getString("designation"),res.getFloat("prixUnitaire"),res.getInt("qteStock"),res.getInt("grammage"));
-            }
+                data = new Spectacle(res.getInt("idSpectacle"),res.getString("titre"),res.getString("artiste"),res.getString("lieu"),res.getDate("date"),res.getInt("place_disponible"));
         //on ferme les connections
         stmt.close();
         //connect.close();
@@ -103,7 +99,7 @@ public Spectacle selectById(Integer idSpectacle) throws DALException {
 
     public List<Spectacle> selectAll() throws DALException {
         try{
-            String sql = "SELECT * FROM ARTICLES";
+            String sql = "SELECT * FROM SPECTACLE";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
 
@@ -112,12 +108,8 @@ public Spectacle selectById(Integer idSpectacle) throws DALException {
             List<Spectacle> data = new ArrayList<>();
             while (res.next()){
                 //data.add(this.selectById(res.getInt("idSpectacle")));
-                if (res.getString("type") == "S"){
-                    data.add(new Stylo(res.getInt("idSpectacle"),res.getString("marque"),res.getString("reference"),res.getString("designation"),res.getFloat("prixUnitaire"),res.getInt("qteStock"),res.getString("couleur")));
-                }
-                else {
-                    data.add(new Ramette(res.getInt("idSpectacle"),res.getString("marque"),res.getString("reference"),res.getString("designation"),res.getFloat("prixUnitaire"),res.getInt("qteStock"),res.getInt("grammage")));
-                }
+                    data.add(new Spectacle(res.getInt("idSpectacle"),res.getString("titre"),res.getString("artiste"),res.getString("lieu"),res.getDate("date"),res.getInt("place_disponible")));
+
             }
 
 
@@ -135,37 +127,22 @@ public Spectacle selectById(Integer idSpectacle) throws DALException {
 
     public void update(Spectacle a1) throws DALException {
         try {
-            String sql = "UPDATE ARTICLES SET " +
-                    "reference =?," +
-                    "marque =?," +
-                    "designation =?," +
-                    "prixUnitaire =?," +
-                    "qteStock =?," +
-                    "type =?," +
-                    "grammage =?," +
-                    "couleur =? " +
+            String sql = "UPDATE SPECTACLE   SET " +
+                    "titre," +
+                    "artiste," +
+                    "lieu," +
+                    "date," +
+                    "place_disponible," +
                     "WHERE idSpectacle =?"
                     ;
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
-            stmt.setString(1,a1.getReference());//"reference,
-            stmt.setString(2,a1.getMarque());//"marque,
-            stmt.setString(3,a1.getDesignation());//"designation,
-            stmt.setFloat(4,a1.getPrixUnitaire());//"prixUnitaire,\
-            stmt.setInt(5,a1.getQteStock());//"qteStock,
-            if ( a1 instanceof Ramette){
-                stmt.setString(6,"R");//"type,
-                stmt.setInt(7,((Ramette) a1).getGrammage());//"grammage,
-                stmt.setNull(8,Types.VARCHAR);//"couleur,
-
-            }
-            if ( a1 instanceof Stylo){
-                stmt.setString(6,"S");//"type,
-                stmt.setNull(7,Types.VARCHAR);//"grammage,
-                stmt.setString(8,((Stylo) a1).getCouleur());//"couleur,
-
-            }
-            stmt.setInt(9,a1.getIdSpectacle());//"id,
+            stmt.setString(1,a1.getTitre());//"titre,
+            stmt.setString(2,a1.getArtiste());//"artiste,
+            stmt.setString(3,a1.getLieu());//"lieu,
+            stmt.setDate(4, (Date) a1.getDate());//"date,\
+            stmt.setInt(5,a1.getPlacesDisponibles());//"place_disponible,
+            stmt.setInt(6,a1.getIdSpectacle());//"id,
 
 
 // on update
@@ -187,7 +164,7 @@ public Spectacle selectById(Integer idSpectacle) throws DALException {
 
     public void delete(Integer idSpectacle) throws DALException {
         try {
-        String sql = "DELETE FROM ARTICLES WHERE idSpectacle = ?";
+        String sql = "DELETE FROM SPECTACLE WHERE idSpectacle = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
 
         stmt.setInt(1,idSpectacle);//"reference,

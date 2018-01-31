@@ -1,5 +1,6 @@
 package fr.eni.spectacle.bo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,26 +13,28 @@ public class Spectacle {
 	private Date date;
 	private int placesDisponibles;
 	private List<Reservation> listeReservations;
-	
-	public Spectacle (int idSpectacle, String titre,String artiste, 
-			String lieu , Date date, int placesDisponibles, List<Reservation> listeReservations){
+
+	public Spectacle() {
+		this.listeReservations = new ArrayList<>();
+	}
+
+	public Spectacle (int idSpectacle, String titre, String artiste,
+					  String lieu , Date date, int placesDisponibles){
 		 this.idSpectacle = idSpectacle;
 		 this.titre = titre;
 		 this.artiste = artiste;
 		 this.lieu = lieu;
 		 this.date = date;
 		 this.placesDisponibles = placesDisponibles;
-		 this.listeReservations = listeReservations;
 	}
 	
 	public Spectacle (String titre,String artiste, 
-			String lieu , Date date, int placesDisponibles, List<Reservation> listeReservations){
+			String lieu , Date date, int placesDisponibles){
 		 this.titre = titre;
 		 this.artiste = artiste;
 		 this.lieu = lieu;
 		 this.date = date;
 		 this.placesDisponibles = placesDisponibles;
-		 this.listeReservations = listeReservations;
 	}
 	
 	public List<Reservation> getListeReservations() {
