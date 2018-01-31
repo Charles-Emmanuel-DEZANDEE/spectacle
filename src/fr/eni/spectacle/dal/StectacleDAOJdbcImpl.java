@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StectacleDAOJdbcImpl {
+public class StectacleDAOJdbcImpl implements Dao{
 
     private  Connection connect;
 
@@ -28,8 +28,8 @@ public class StectacleDAOJdbcImpl {
     }
 
 
-    public void insert(Spectacle a1) throws DALException {
-
+    public void insert(Object a2) throws DALException {
+        Spectacle a1 = (Spectacle) a2;
 
         try {
             String sql = "INSERT INTO SPECTACLE (" +
@@ -72,7 +72,7 @@ public class StectacleDAOJdbcImpl {
         }
     }
 
-public Spectacle selectById(Integer idSpectacle) throws DALException {
+public Spectacle selectById(int idSpectacle) throws DALException {
     try{
         String sql = "SELECT * FROM SPECTACLE WHERE idSpectacle = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
@@ -96,6 +96,37 @@ public Spectacle selectById(Integer idSpectacle) throws DALException {
             throw new DALException(e.getMessage());
         }
     }
+
+    public List<Spectacle> selectByArtiste(String artiste)throws DALException{
+        try{
+            String sql = "SELECT * FROM SPECTACLE WHERE artiste LIKE %?%";
+            PreparedStatement stmt = this.connect.prepareStatement(sql);
+
+            stmt.setString(1,artiste.trim());//"reference,
+
+
+
+            ResultSet res = stmt.executeQuery();
+//on boucle sur les résultats
+            List<Spectacle> data = new ArrayList<>();
+            while (res.next()){
+                //data.add(this.selectById(res.getInt("idSpectacle")));
+                data.add(new Spectacle(res.getInt("idSpectacle"),res.getString("titre"),res.getString("artiste"),res.getString("lieu"),res.getDate("date"),res.getInt("place_disponible")));
+
+            }
+
+
+            //on ferme les connections
+            stmt.close();
+            //connect.close();
+
+            return data;
+
+        } catch (SQLException e) {
+            throw new DALException(e.getMessage());
+        }
+    }
+
 
     public List<Spectacle> selectAll() throws DALException {
         try{
@@ -125,7 +156,8 @@ public Spectacle selectById(Integer idSpectacle) throws DALException {
 
     }
 
-    public void update(Spectacle a1) throws DALException {
+    public void update(Object a2) throws DALException {
+       Spectacle a1 = (Spectacle) a2;
         try {
             String sql = "UPDATE SPECTACLE   SET " +
                     "titre," +
@@ -162,7 +194,7 @@ public Spectacle selectById(Integer idSpectacle) throws DALException {
 
     }
 
-    public void delete(Integer idSpectacle) throws DALException {
+    public void delete(int idSpectacle) throws DALException {
         try {
         String sql = "DELETE FROM SPECTACLE WHERE idSpectacle = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
