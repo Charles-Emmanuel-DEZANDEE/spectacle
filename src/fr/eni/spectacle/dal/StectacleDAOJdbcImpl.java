@@ -1,4 +1,5 @@
 package fr.eni.spectacle.dal;
+package fr.eni.spectacle.bo;
 
 
 import java.sql.*;
@@ -30,45 +31,27 @@ public class StectacleDAOJdbcImpl implements StectacleDAO {
 
 
         try {
-            String sql = "INSERT INTO ARTICLES (" +
-                    "reference," +
-                    "marque," +
-                    "designation," +
-                    "prixUnitaire," +
-                    "qteStock," +
-                    "type," +
-                    "grammage," +
-                    "couleur)" +
+            String sql = "INSERT INTO SPECTACLE (" +
+                    "titre," +
+                    "artiste," +
+                    "lieu," +
+                    "date," +
+                    "place_disponible," +
 
                     "VALUES (" +
-                    "?,"+//"reference,
-                    "?,"+//"marque,
-                    "?,"+//"designation,
-                    "?,"+//"prixUnitaire,\
-                    "?,"+//"qteStock,
-                    "?,"+//"type,
-                    "?,"+//"grammage,
-                    "?"+ //"couleur,
+                    "?,"+//"titre,
+                    "?,"+//"artiste,
+                    "?,"+//"lieu,
+                    "?,"+//"date,\
+                    "?,"+//"place_disponible,
                     ")";
             PreparedStatement stmt = this.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            stmt.setString(1,a1.getReference());//"reference,
-            stmt.setString(2,a1.getMarque());//"marque,
-            stmt.setString(3,a1.getDesignation());//"designation,
-            stmt.setFloat(4,a1.getPrixUnitaire());//"prixUnitaire,\
-            stmt.setInt(5,a1.getQteStock());//"qteStock,
-            if ( a1 instanceof Ramette){
-                stmt.setString(6,"R");//"type,
-                stmt.setInt(7,((Ramette) a1).getGrammage());//"grammage,
-                stmt.setNull(8,Types.VARCHAR);//"couleur,
-
-            }
-            if ( a1 instanceof Stylo){
-                stmt.setString(6,"S");//"type,
-                stmt.setNull(7,Types.VARCHAR);//"grammage,
-                stmt.setString(8,((Stylo) a1).getCouleur());//"couleur,
-
-            }
+            stmt.setString(1,a1.getTitre);//"titre,
+            stmt.setString(2,a1.getMarque());//"artiste,
+            stmt.setString(3,a1.getDesignation());//"lieu,
+            stmt.setFloat(4,a1.getPrixUnitaire());//"date,\
+            stmt.setInt(5,a1.getQteStock());//"place_disponible,
 
 // on indique le numero d'id auto genéré dans l'objet article
             int nbRows = stmt.executeUpdate();
