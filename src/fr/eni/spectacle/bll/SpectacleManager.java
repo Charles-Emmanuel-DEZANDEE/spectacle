@@ -33,7 +33,7 @@ public class SpectacleManager {
 			spectacle = daoSpectalce.selectById(idSpectacle);
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération du spectacle par Id", e);
+			throw new BLLException("Erreur rï¿½cupï¿½ration du spectacle par Id", e);
 		}
 		
 		return spectacle;
@@ -45,7 +45,7 @@ public class SpectacleManager {
 			spectacle = ((StectacleDAOJdbcImpl)daoSpectalce).selectByArtiste(artiste);
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération spectacles par artiste", e);
+			throw new BLLException("Erreur rï¿½cupï¿½ration spectacles par artiste", e);
 		}
 		
 		return spectacle;
@@ -57,7 +57,7 @@ public class SpectacleManager {
 			spectacle = daoSpectalce.selectAll();
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération spectacles", e);
+			throw new BLLException("Erreur rï¿½cupï¿½ration spectacles", e);
 		}
 		
 		return spectacle;
