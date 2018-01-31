@@ -2,10 +2,10 @@ USE SPECTACLE_DB;
 GO
 
 CREATE TABLE spectacle(
-id INT not null,
+id INT not null IDENTITY (1,1),
 titre VARCHAR(200) not null,
 artiste VARCHAR(200) not null,
-lieu Varchar(200),
+lieu Varchar(200) not null,
 date DATE not null,
 places_disponible INT not null,
 CONSTRAINT PK_ID_SPECTACLE PRIMARY KEY(id)
@@ -13,7 +13,7 @@ CONSTRAINT PK_ID_SPECTACLE PRIMARY KEY(id)
 GO
 
 CREATE TABLE client(
-id INT not null,
+id INT not null IDENTITY (1,1),
 nom VARCHAR(200) not null,
 prenom VARCHAR(200) not null,
 email VARCHAR(200) not null,

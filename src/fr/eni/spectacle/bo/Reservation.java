@@ -1,6 +1,6 @@
 package fr.eni.spectacle.bo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Reservation {
 	private int codeReservation;
@@ -9,7 +9,7 @@ public class Reservation {
 	private int nombrePlaces;
 	private Date dateReservation ;
 	
-	public Reservation(int codeReservation,  int idSpectacle,int clientId, 
+	public Reservation(int codeReservation,  int idSpectacle,int clientId,
 			int nombrePlaces ) {
 		this.codeReservation= codeReservation;
 		this.idSpectacle = idSpectacle;
@@ -17,8 +17,8 @@ public class Reservation {
 		this.nombrePlaces = nombrePlaces;
 	}
 	
-	public Reservation(int idSpectacle,int clientId, 
-			int nombrePlaces ) {
+	public Reservation(int code_reservation, int idSpectacle, int clientId,
+					   int nombrePlaces, Date date_reservation) {
 		this.idSpectacle = idSpectacle;
 		this.clientId = clientId;
 		this.nombrePlaces = nombrePlaces;

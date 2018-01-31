@@ -1,7 +1,7 @@
 package fr.eni.spectacle.bo;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class Spectacle {
@@ -25,6 +25,7 @@ public class Spectacle {
 		 this.artiste = artiste;
 		 this.lieu = lieu;
 		 this.date = date;
+		 //date.
 		 this.placesDisponibles = placesDisponibles;
 	}
 	
@@ -81,6 +82,17 @@ public class Spectacle {
 	public void setPlacesDisponibles(int placesDisponibles) {
 		this.placesDisponibles = placesDisponibles;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Spectacle{" +
+				"idSpectacle=" + idSpectacle +
+				", titre='" + titre + '\'' +
+				", artiste='" + artiste + '\'' +
+				", lieu='" + lieu + '\'' +
+				", date=" + date +
+				", placesDisponibles=" + placesDisponibles +
+				", listeReservations=" + listeReservations +
+				'}';
+	}
 }

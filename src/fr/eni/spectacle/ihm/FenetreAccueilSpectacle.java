@@ -36,11 +36,11 @@ public class FenetreAccueilSpectacle extends JFrame{
 		setLocationRelativeTo(null);
 		setSize(800, 800);
 		setResizable(false);
-		setTitle("Réservation spectacle");
+		setTitle("Rï¿½servation spectacle");
 		this.toolbar = new JMenuBar();
 		JButton accueil = new JButton("Accueil");
 		this.toolbar.add(accueil);
-		JButton reservations = new JButton("Réservations");
+		JButton reservations = new JButton("Rï¿½servations");
 		this.toolbar.add(reservations);
 		JButton clients = new JButton("Clients");
 		this.toolbar.add(clients);
@@ -130,7 +130,7 @@ public class FenetreAccueilSpectacle extends JFrame{
 		}
 		return this.buttonRechercherArtiste;
 	}
-	
+
 	public Map<Spectacle, JPanel> getLabelSpectacle(){
 		Map<Spectacle, JPanel> listeJLabelSpectacle = new HashMap<>();
 
@@ -187,5 +187,6 @@ public class FenetreAccueilSpectacle extends JFrame{
 		}
 		return this.labelReservation;
 	}
+
 	
 }
