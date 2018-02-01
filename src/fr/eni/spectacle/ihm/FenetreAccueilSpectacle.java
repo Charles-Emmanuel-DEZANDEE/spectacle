@@ -3,20 +3,15 @@ package fr.eni.spectacle.ihm;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
 
-import fr.eni.spectacle.bo.Client;
-import fr.eni.spectacle.bo.Reservation;
-import fr.eni.spectacle.bo.Spectacle;
+import fr.eni.spectacle.bo.*;
 import fr.eni.spectacle.bll.*;
 import fr.eni.spectacle.dal.DALException;
-import javafx.scene.shape.Line;
-import sun.java2d.loops.DrawLine;
 
 public class FenetreAccueilSpectacle extends JFrame {
 
@@ -53,7 +48,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		JButton clients = new JButton("Clients");
 		this.toolbar.add(clients);
 		this.setJMenuBar(this.toolbar);
-		//initListeSpectacle();
+//		initListeSpectacle();
 		setVisible(true);
 	}
 
@@ -297,7 +292,15 @@ public class FenetreAccueilSpectacle extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					//renvoi vers la reservation
-					initReservation(spectacle);
+					try {
+						Controller.getInstance().nouvelleReservation(spectacle);
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 			panelSpectacle.add(btn, gbc);

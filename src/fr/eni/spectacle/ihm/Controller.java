@@ -16,24 +16,13 @@ public class Controller {
 	
 	private FenetreAccueilSpectacle fenetreSpectacle;
 	private static Controller instance;
-	private ClientManager cMger;
-	private ReservationManager rMger;
-	private SpectacleManager sMger;
-	private List<Client> listeClients;
-	private List<Reservation> listeReservations;
-	private List<Spectacle> listeSpectacle;
+
 	
 	private Controller() throws DALException, BLLException{
-		cMger = new ClientManager();
-		rMger = new ReservationManager();
-		sMger = new SpectacleManager();
-		
-		listeClients = cMger.getClients();
-		listeReservations = rMger.getReservations();
-		listeSpectacle = sMger.getSpectacles();
+		fenetreSpectacle = new FenetreAccueilSpectacle();
 	}
 
-	public static synchronized Controller get() throws DALException, BLLException{
+	public static synchronized Controller getInstance() throws DALException, BLLException{
 		if (instance == null){
 			instance = new Controller();
 		}
@@ -41,8 +30,13 @@ public class Controller {
 	}
 	
 	public void startApp() throws BLLException, DALException {
-		fenetreSpectacle = new FenetreAccueilSpectacle();
 		fenetreSpectacle.initListeSpectacle();
+	}
+	
+	public void nouvelleReservation(Spectacle spectacle){
+		fenetreSpectacle.initReservation(spectacle);
+		fenetreSpectacle.revalidate();
+		fenetreSpectacle.repaint();
 	}
 	
 	

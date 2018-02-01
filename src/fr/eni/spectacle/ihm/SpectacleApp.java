@@ -14,7 +14,7 @@ public class SpectacleApp {
 			@Override
 			public void run(){
 				try {
-					Controller.get().startApp();
+					Controller.getInstance().startApp();
 				} catch (BLLException e) {
 					e.printStackTrace();
 				} catch (DALException e) {
