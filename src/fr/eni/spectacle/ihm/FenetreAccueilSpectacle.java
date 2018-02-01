@@ -261,6 +261,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					//renvoi vers la reservation
 					initReservation(spectacle);
 				}
 			});
