@@ -106,7 +106,7 @@ public Client selectById(int id) throws DALException {
 
     public List<Client> selectByNomClient(String nom)throws DALException{
         try{
-            String sql = "SELECT * FROM CLIENT WHERE nom LIKE %?%";
+            String sql = "SELECT * FROM CLIENT WHERE nom LIKE ?";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
             stmt.setString(1,nom.trim());//"reference,
