@@ -16,10 +16,12 @@ public class Controller {
 	
 	private FenetreAccueilSpectacle fenetreSpectacle;
 	private static Controller instance;
+	private boolean nouveauClient;
 
 	
 	private Controller() throws DALException, BLLException{
 		fenetreSpectacle = new FenetreAccueilSpectacle();
+		this.nouveauClient = true;
 	}
 
 	public static synchronized Controller getInstance() throws DALException, BLLException{
@@ -46,4 +48,35 @@ public class Controller {
 		fenetreSpectacle.revalidate();
 		fenetreSpectacle.repaint();
 	}
+
+	public void enregistrerReservation(){
+	    //traitement
+        if (this.nouveauClient){
+            //création d'un client
+        }
+
+        // recupérer les champs avec get
+        //on créé une reservation
+
+
+
+        this.nouveauClient= true;
+
+    }
+
+    public void utiliserClientExistant(Client client){
+	    this.nouveauClient= false;
+	    //remplissage des champs de la reservation
+
+    }
+
+    public void listeDesResvations(){
+
+    }
+
+    public void listeDesClients(){
+
+    }
+
+
 }
