@@ -22,6 +22,8 @@ import javax.swing.JComboBox;
 import fr.eni.spectacle.bo.Client;
 import fr.eni.spectacle.bo.Reservation;
 import fr.eni.spectacle.bo.Spectacle;
+import fr.eni.spectacle.bll.*;
+import fr.eni.spectacle.dal.DALException;
 
 public class FenetreAccueilSpectacle extends JFrame {
 
@@ -43,17 +45,17 @@ public class FenetreAccueilSpectacle extends JFrame {
 	private JComboBox<String> cboClients;
 	private JButton buttonValider2;
 	
-	public FenetreAccueilSpectacle() {
+	public FenetreAccueilSpectacle() throws BLLException, DALException {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(800, 800);
 		setResizable(false);
-		setTitle("R�servation spectacle");
+		setTitle("Réservation spectacle");
 		this.toolbar = new JMenuBar();
 		JButton accueil = new JButton("Accueil");
 		this.toolbar.add(accueil);
-		JButton reservations = new JButton("R�servations");
+		JButton reservations = new JButton("Réservations");
 		this.toolbar.add(reservations);
 		JButton clients = new JButton("Clients");
 		this.toolbar.add(clients);
@@ -62,7 +64,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		setVisible(true);
 	}
 
-	private void initListeSpectacle() {
+	private void initListeSpectacle() throws BLLException, DALException {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 
@@ -85,6 +87,20 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		panel.add(this.getButtonRechercherArtiste(), gbc);
+
+		// boucle qui ajoute des panels
+		int index = 2;
+		for(Map.Entry<Spectacle, JPanel> entry : getListPanelSpectacle().entrySet()) {
+			Spectacle cle = entry.getKey();
+			JPanel valeur = entry.getValue();
+			// traitements
+			gbc.gridwidth = 3;
+			gbc.gridx = 0;
+			gbc.gridy = index;
+
+			panel.add(valeur,gbc);
+			index ++;
+		}
 
 		setContentPane(panel);
 	}
@@ -127,7 +143,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		panel2.add(this.getFieldNom());
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		panel2.add(new JLabel("Pr�nom : "), gbc);
+		panel2.add(new JLabel("Prénom : "), gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 2;
 		panel2.add(this.getFielPrenom());
@@ -219,11 +235,10 @@ public class FenetreAccueilSpectacle extends JFrame {
 		return this.buttonRechercherArtiste;
 	}
 
-	public Map<Spectacle, JPanel> getLabelSpectacle() {
+	public Map<Spectacle, JPanel> getListPanelSpectacle() throws BLLException, DALException {
 		Map<Spectacle, JPanel> listeJLabelSpectacle = new HashMap<>();
-
-		List<Spectacle> listeSpectacle = new ArrayList<Spectacle>();
-		// todo recuprer la liste
+//on récuprére la liste
+		List<Spectacle> listeSpectacle = SpectacleManager.getInstance().getSpectacles();
 		for (Spectacle spectacle : listeSpectacle) {
 			listeJLabelSpectacle.put(spectacle, getPanelSpectacle(spectacle));
 		}
@@ -249,7 +264,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 
 			// if(dispoOuReserv(spectacle) == true){
 			if (dispoOuReserv == true) {
-				btn = new JButton("R�servations");
+				btn = new JButton("Réservations");
 				btn.addActionListener(new ActionListener() {
 
 					@Override
@@ -271,7 +286,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 
 	public JLabel getLabelReservation() {
 		if (this.labelReservation == null) {
-			this.labelReservation = new JLabel("R�servation");
+			this.labelReservation = new JLabel("Réservation");
 			this.labelReservation.setFont(new Font("Serif", Font.PLAIN, 35));
 		}
 		return this.labelReservation;

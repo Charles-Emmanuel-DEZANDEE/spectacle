@@ -1,5 +1,8 @@
 package fr.eni.spectacle.ihm;
 
+import fr.eni.spectacle.bll.BLLException;
+import fr.eni.spectacle.dal.DALException;
+
 public class Controller {
 	
 	private FenetreAccueilSpectacle fenetreSpectacle;
@@ -16,7 +19,7 @@ public class Controller {
 		return instance;
 	}
 	
-	public void startApp(){
+	public void startApp() throws BLLException, DALException {
 		fenetreSpectacle = new FenetreAccueilSpectacle();
 	}
 }
