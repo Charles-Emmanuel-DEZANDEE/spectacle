@@ -53,11 +53,11 @@ public class FenetreAccueilSpectacle extends JFrame {
 		JButton clients = new JButton("Clients");
 		this.toolbar.add(clients);
 		this.setJMenuBar(this.toolbar);
-		initListeSpectacle();
+		//initListeSpectacle();
 		setVisible(true);
 	}
 
-	private void initListeSpectacle() throws BLLException, DALException {
+	public void initListeSpectacle() throws BLLException, DALException {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 
@@ -100,7 +100,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		JScrollPane scroll = new JScrollPane( c );
 		setContentPane( scroll );	}
 
-	private void initReservation(Spectacle spectacle) {
+	public void initReservation(Spectacle spectacle) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		JPanel panel2 = new JPanel();
