@@ -26,7 +26,16 @@ public class SpectacleManager {
 		return SpectacleManager.instance;
 	}
 	
-	
+	public boolean spectacleDispo( Spectacle spectacle) throws BLLException {
+		boolean reponse = true;
+
+		if (this.getSpectacleById(spectacle.getIdSpectacle()).getPlacesDisponibles() <= 0) {
+			reponse = false;
+		}
+		return reponse;
+
+	}
+
 	public Spectacle getSpectacleById(int idSpectacle) throws BLLException{
 		Spectacle spectacle=null;
 		try {
