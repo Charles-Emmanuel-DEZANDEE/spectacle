@@ -248,7 +248,15 @@ public class FenetreAccueilSpectacle extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//rechercherArtiste();
+					try {
+						Controller.getInstance().rechercherArtiste();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}

@@ -39,5 +39,9 @@ public class Controller {
 		fenetreSpectacle.repaint();
 	}
 	
-	
+	public void rechercherArtiste(){
+		
+		fenetreSpectacle.getFieldRechercherArtiste();
+
+	}
 }
