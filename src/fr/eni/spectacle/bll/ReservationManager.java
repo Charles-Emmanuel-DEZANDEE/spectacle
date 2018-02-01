@@ -2,6 +2,7 @@ package fr.eni.spectacle.bll;
 
 import java.util.List;
 
+import fr.eni.spectacle.bo.Client;
 import fr.eni.spectacle.bo.Reservation;
 import fr.eni.spectacle.bo.Spectacle;
 import fr.eni.spectacle.dal.DALException;
@@ -33,7 +34,7 @@ public class ReservationManager {
 			reservation = daoReservation.selectById(idReservation);
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération de la reservation par Id", e);
+			throw new BLLException("Erreur r?cup?ration de la reservation par Id", e);
 		}
 		
 		return reservation;
@@ -45,19 +46,31 @@ public class ReservationManager {
 			reservations = daoReservation.selectAll();
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération reservations", e);
+			throw new BLLException("Erreur r?cup?ration reservations", e);
 		}
 		
 		return reservations;
 	}
 	
-	public void addReservation(Reservation newReservation) throws BLLException {
+	public void addReservation(Reservation newReservation, Client client, boolean nouveauClient) throws BLLException {
 		if(newReservation.getIdSpectacle()!= 0){
 			throw new BLLException("Reservation deja existant.");
 		}
 		try {
-			//TODO 
-			//validerSpectacle(newReservation);
+			//on valide la reservation et client
+			ClientManager.getInstance().validerClient(client);
+			this.validerReservation(newReservation);
+
+			//on ajoute le client si c'est un nouveau
+            if (nouveauClient) {
+                ClientManager.getInstance().addClient(client);
+            }
+            //on le met à jour s'il y a eu des modifs
+			else {
+                ClientManager.getInstance().updateClient(client);
+            }
+
+        // on ajoute la reservation
 			daoReservation.insert(newReservation);
 			//mettre a jour le spectacle 
 			Spectacle spectacle = daoSpectacle.selectById(newReservation.getIdSpectacle());
@@ -68,10 +81,11 @@ public class ReservationManager {
 		}
 	}
 	
-	public void updateReservation(Reservation reservation) throws BLLException{
+	public void updateReservation(Reservation reservation, Client client) throws BLLException{
 		try {
-			//todo
-			//validerSpectacle(reservation);
+			this.validerReservation(reservation);
+			ClientManager.getInstance().validerClient(client);
+			ClientManager.getInstance().updateClient(client);
 			daoReservation.update(reservation);
 			
 		} catch (DALException e) {
@@ -79,13 +93,35 @@ public class ReservationManager {
 		}
 	}
 	
-	public void removeReservation(int  idReservation) throws BLLException{
+	public void removeReservation(int  idReservation, int idClient) throws BLLException{
 		try {
 			daoReservation.delete(idReservation);
+
 		} catch (DALException e) {
-			throw new BLLException("Echec de la suppression du spectacle - ", e);
+			throw new BLLException("Echec de la suppression de la reservation - ", e);
 		}
 		
 	}
-	
+
+	public void validerReservation(Reservation reservation) throws BLLException
+	{
+		boolean valide = true;
+		StringBuffer sb = new StringBuffer();
+
+		if(reservation==null){
+			throw new BLLException("Spectacle null");
+		}
+		//Les attributs de la reservation sont obligatoires
+		if(reservation.getNombrePlaces() == 0){
+			sb.append("Le nombre de places doit être supérieur à 0.\n");
+			valide = false;
+		}
+
+		if(!valide){
+			throw new BLLException(sb.toString());
+		}
+
+	}
+
+
 }
