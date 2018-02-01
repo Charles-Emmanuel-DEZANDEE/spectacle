@@ -239,10 +239,10 @@ public class FenetreAccueilSpectacle extends JFrame {
 		return listeJLabelSpectacle;
 	}
 
-	public JPanel getPanelSpectacle(Spectacle spectacle) {
+	public JPanel getPanelSpectacle(Spectacle spectacle) throws BLLException, DALException {
 		JButton btn = null;
 		// pour l'instant
-		boolean dispoOuReserv = true;
+		//boolean dispoOuReserv = true;
 		panelSpectacle = new JPanel();
 		panelSpectacle.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -254,8 +254,8 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 
-		// if(dispoOuReserv(spectacle) == true){
-		if (dispoOuReserv == true) {
+		 if(SpectacleManager.getInstance().spectacleDispo(spectacle) == true){
+		//if (dispoOuReserv == true) {
 			btn = new JButton("Réservations");
 			btn.addActionListener(new ActionListener() {
 
