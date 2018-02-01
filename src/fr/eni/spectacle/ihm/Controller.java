@@ -39,9 +39,7 @@ public class Controller {
 		fenetreSpectacle.repaint();
 	}
 	
-	public void rechercherArtiste(){
-		
-		fenetreSpectacle.getFieldRechercherArtiste();
-
+	public void rechercherArtiste() throws BLLException, DALException{
+		fenetreSpectacle.ListeSpectacleByArtiste(fenetreSpectacle.getFieldRechercherArtiste().getText());
 	}
 }
