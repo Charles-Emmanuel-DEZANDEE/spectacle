@@ -1,5 +1,6 @@
 package fr.eni.spectacle.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
@@ -13,8 +14,12 @@ public class Client {
 	private String ville;
 	private List<Reservation> listeReservations;
 
-	public Client(int idClient,String nom, String prenom, String email,
-			String adresse,String codePostal, String ville, List<Reservation> listeReservations) {
+	public Client() {
+		this.listeReservations = new ArrayList<>();
+	}
+
+	public Client(int idClient, String nom, String prenom, String email,
+				  String adresse, String codePostal, String ville) {
 		this.idClient = idClient;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -22,18 +27,16 @@ public class Client {
 		this.adresse = adresse;
 		this.codePostal = codePostal;
 		this.ville = ville;
-		this.listeReservations = listeReservations;
 	}
 	
 	public Client(String nom, String prenom, String email,
-			String adresse,String codePostal, String ville, List<Reservation> listeReservations) {
+			String adresse,String codePostal, String ville) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.adresse = adresse;
 		this.codePostal = codePostal;
 		this.ville = ville;
-		this.listeReservations = listeReservations;
 	}
 	
 	public List<Reservation> getListeReservations() {
@@ -44,15 +47,6 @@ public class Client {
 		this.listeReservations = listeReservations;
 	}
 
-	public Client(String nom, String prenom, String email,
-			String adresse,String codePostal, String ville) {
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.adresse = adresse;
-		this.codePostal = codePostal;
-		this.ville = ville;
-	}
 
 
 	public int getIdClient() {
