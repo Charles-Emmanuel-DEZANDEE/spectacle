@@ -114,7 +114,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		panel3.setLayout(new GridBagLayout());
 
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.insets = new Insets(5, 200, 5, 200);
 
 		// Ligne 1
 		gbc.gridwidth = 0;
@@ -122,76 +122,93 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridy = 0;
 		panel.add(this.getLabelReservation(), gbc);
 		gbc.gridwidth = 1;
+		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		panel.add(new JLabel(spectacle.getArtiste() + ", " + spectacle.getTitre() + " " + spectacle.getLieu() + " / "
-				+ spectacle.getDate()), gbc);
+		panel.add(new JLabel(spectacle.getArtiste() + ", " + spectacle.getTitre()), gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		panel.add(new JLabel(spectacle.getLieu() + " / " + spectacle.getDate()), gbc);
+		
 		gbc.gridx = 1;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		panel.add(new JLabel(String.valueOf("Places disponibles :" + spectacle.getPlacesDisponibles())), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		panel.add(panel2, gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		panel2.add(new JLabel("Nouveau client"), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		panel2.add(new JLabel("Nom : "), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		panel2.add(this.getFieldNom());
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		panel2.add(new JLabel("Prénom : "), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		panel2.add(this.getFielPrenom());
-		gbc.gridx = 0;
-		gbc.gridy = 3;
-		panel2.add(new JLabel("Email : "), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 3;
-		panel2.add(this.getFieldEmail());
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		panel2.add(new JLabel("Adresse : "), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 4;
-		panel2.add(this.getFieldAdresse());
-		gbc.gridx = 0;
-		gbc.gridy = 5;
-		panel2.add(new JLabel("Code postal : "), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 5;
-		panel2.add(this.getFieldCP());
-		gbc.gridx = 0;
-		gbc.gridy = 6;
-		panel2.add(new JLabel("Ville : "), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 6;
-		panel2.add(this.getFieldVille());
-		gbc.gridx = 0;
-		gbc.gridy = 7;
-		panel2.add(new JLabel("Places : "), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 7;
-		panel2.add(getCboPlaces(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 8;
-		panel2.add(this.getButtonValider());
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		panel.add(panel3, gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		panel3.add(new JLabel("Client existant"));
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		panel3.add(getCboClients(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		panel3.add(this.getButtonValider2());
+//		gbc.gridx = 0;
+//		gbc.gridy = 2;
+		
+//		panel.add(panel2, gbc);
+//		gbc.gridx = 0;
+//		gbc.gridy = 0;
+//		gbc.gridwidth = 1;
+//		
+//		panel2.add(new JLabel("Nouveau client"), gbc);
+//		
+//		gbc.gridx = 0;
+//		gbc.gridy = 1;
+//		panel2.add(new JLabel("Nom : "), gbc);
+//		gbc.gridx = 1;
+//		gbc.gridy = 1;
+//		panel2.add(this.getFieldNom());
+//		
+//		gbc.gridx = 0;
+//		gbc.gridy = 2;
+//		panel2.add(new JLabel("Prénom : "), gbc);
+//		gbc.gridx = 1;
+//		gbc.gridy = 2;
+//		panel2.add(this.getFielPrenom());
+//		
+//		gbc.gridx = 0;
+//		gbc.gridy = 3;
+//		panel2.add(new JLabel("Email : "), gbc);
+//		gbc.gridx = 1;
+//		gbc.gridy = 3;
+//		panel2.add(this.getFieldEmail());
+//		
+//		gbc.gridx = 0;
+//		gbc.gridy = 4;
+//		panel2.add(new JLabel("Adresse : "), gbc);
+//		gbc.gridx = 1;
+//		gbc.gridy = 4;
+//		panel2.add(this.getFieldAdresse());
+//		
+//		gbc.gridx = 0;
+//		gbc.gridy = 5;
+//		panel2.add(new JLabel("Code postal : "), gbc);
+//		gbc.gridx = 1;
+//		gbc.gridy = 5;
+//		panel2.add(this.getFieldCP());
+//		
+//		gbc.gridx = 0;
+//		gbc.gridy = 6;
+//		panel2.add(new JLabel("Ville : "), gbc);
+//		gbc.gridx = 1;
+//		gbc.gridy = 6;
+//		panel2.add(this.getFieldVille());
+//		
+//		gbc.gridx = 0;
+//		gbc.gridy = 7;
+//		panel2.add(new JLabel("Places : "), gbc);
+//		gbc.gridx = 1;
+//		gbc.gridy = 7;
+//		panel2.add(getCboPlaces(), gbc);
+//		
+//		gbc.gridx = 0;
+//		gbc.gridy = 8;
+//		panel2.add(this.getButtonValider());
+//		
+//		gbc.gridx = 1;
+//		gbc.gridy = 2;
+//		panel.add(panel3, gbc);
+//		gbc.gridx = 0;
+//		gbc.gridy = 0;
+//		panel3.add(new JLabel("Client existant"));
+//		gbc.gridx = 0;
+//		gbc.gridy = 1;
+//		panel3.add(getCboClients(), gbc);
+//		gbc.gridx = 0;
+//		gbc.gridy = 2;
+//		panel3.add(this.getButtonValider2());
 		
 		setContentPane(panel);
 	}
