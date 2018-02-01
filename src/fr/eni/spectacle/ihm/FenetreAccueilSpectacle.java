@@ -95,6 +95,49 @@ public class FenetreAccueilSpectacle extends JFrame {
 		JScrollPane scroll = new JScrollPane( c );
 		setContentPane( scroll );	}
 
+	public void ListeSpectacleByArtiste(String artiste) throws BLLException, DALException {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+
+		// Ligne 1
+		gbc.gridwidth = 0;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panel.add(this.getLabelListeSpectacle(), gbc);
+		// Ligne 2
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		panel.add(this.getLabelRechercher(), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		panel.add(this.getFieldRechercherArtiste(), gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 1;
+		panel.add(this.getButtonRechercherArtiste(), gbc);
+
+		// boucle qui ajoute des panels
+		int index = 2;
+		for(Map.Entry<Spectacle, JPanel> entry : getListPanelSpectacleByArtiste(artiste).entrySet()) {
+			Spectacle cle = entry.getKey();
+			JPanel valeur = entry.getValue();
+			// traitements
+			gbc.gridwidth = 3;
+			gbc.gridx = 0;
+			gbc.gridy = index;
+
+			panel.add(valeur,gbc);
+			index ++;
+		}
+		setContentPane(panel);
+		//scoll barre
+		Container c = getContentPane();
+		JScrollPane scroll = new JScrollPane( c );
+		setContentPane( scroll );	}
+
 	public void initReservation(Spectacle spectacle) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -267,6 +310,17 @@ public class FenetreAccueilSpectacle extends JFrame {
 		Map<Spectacle, JPanel> listeJLabelSpectacle = new HashMap<>();
 //on récuprére la liste
 		List<Spectacle> listeSpectacle = SpectacleManager.getInstance().getSpectacles();
+		for (Spectacle spectacle : listeSpectacle) {
+			listeJLabelSpectacle.put(spectacle, getPanelSpectacle(spectacle));
+		}
+
+		return listeJLabelSpectacle;
+	}
+
+	public Map<Spectacle, JPanel> getListPanelSpectacleByArtiste(String artiste) throws BLLException, DALException {
+		Map<Spectacle, JPanel> listeJLabelSpectacle = new HashMap<>();
+//on récuprére la liste
+		List<Spectacle> listeSpectacle = SpectacleManager.getInstance().getSpectacleByArtiste(artiste);
 		for (Spectacle spectacle : listeSpectacle) {
 			listeJLabelSpectacle.put(spectacle, getPanelSpectacle(spectacle));
 		}
