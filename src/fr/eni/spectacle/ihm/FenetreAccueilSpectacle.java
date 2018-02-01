@@ -1,9 +1,6 @@
 package fr.eni.spectacle.ihm;
 
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,13 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import javax.swing.*;
 
 import fr.eni.spectacle.bo.Client;
 import fr.eni.spectacle.bo.Reservation;
@@ -101,9 +92,11 @@ public class FenetreAccueilSpectacle extends JFrame {
 			panel.add(valeur,gbc);
 			index ++;
 		}
-
 		setContentPane(panel);
-	}
+		//scoll barre
+		Container c = getContentPane();
+		JScrollPane scroll = new JScrollPane( c );
+		setContentPane( scroll );	}
 
 	private void initReservation(Spectacle spectacle) {
 		JPanel panel = new JPanel();
@@ -250,34 +243,32 @@ public class FenetreAccueilSpectacle extends JFrame {
 		JButton btn = null;
 		// pour l'instant
 		boolean dispoOuReserv = true;
-		if (panelSpectacle == null) {
-			panelSpectacle = new JPanel();
-			panelSpectacle.setLayout(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.insets = new Insets(5, 5, 5, 5);
-			gbc.gridx = 0;
-			gbc.gridy = 1;
-			panelSpectacle.add(new JLabel(spectacle.getArtiste() + ", " + spectacle.getTitre() + " "
-					+ spectacle.getLieu() + " / " + spectacle.getDate()), gbc);
-			gbc.gridx = 1;
-			gbc.gridy = 1;
+		panelSpectacle = new JPanel();
+		panelSpectacle.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		panelSpectacle.add(new JLabel(spectacle.getArtiste() + ", " + spectacle.getTitre() + " "
+				+ spectacle.getLieu() + " / " + spectacle.getDate()), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
 
-			// if(dispoOuReserv(spectacle) == true){
-			if (dispoOuReserv == true) {
-				btn = new JButton("Réservations");
-				btn.addActionListener(new ActionListener() {
+		// if(dispoOuReserv(spectacle) == true){
+		if (dispoOuReserv == true) {
+			btn = new JButton("Réservations");
+			btn.addActionListener(new ActionListener() {
 
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						initReservation(spectacle);
-					}
-				});
-				panelSpectacle.add(btn, gbc);
-			} else {
-				btn = new JButton("Indisponible");
-				btn.setEnabled(false);
-				panelSpectacle.add(btn, gbc);
-			}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					initReservation(spectacle);
+				}
+			});
+			panelSpectacle.add(btn, gbc);
+		} else {
+			btn = new JButton("Indisponible");
+			btn.setEnabled(false);
+			panelSpectacle.add(btn, gbc);
 		}
 		return panelSpectacle;
 	}
