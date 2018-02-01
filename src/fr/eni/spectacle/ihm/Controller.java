@@ -31,6 +31,8 @@ public class Controller {
 	
 	public void startApp() throws BLLException, DALException {
 		fenetreSpectacle.initListeSpectacle();
+		fenetreSpectacle.revalidate();
+		fenetreSpectacle.repaint();
 	}
 	
 	public void nouvelleReservation(Spectacle spectacle){
@@ -41,5 +43,7 @@ public class Controller {
 	
 	public void rechercherArtiste() throws BLLException, DALException{
 		fenetreSpectacle.ListeSpectacleByArtiste(fenetreSpectacle.getFieldRechercherArtiste().getText());
+		fenetreSpectacle.revalidate();
+		fenetreSpectacle.repaint();
 	}
 }

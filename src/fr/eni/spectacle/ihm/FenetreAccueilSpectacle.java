@@ -32,6 +32,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	private JComboBox<String> cboPlaces;
 	private JComboBox<String> cboClients;
 	private JButton buttonValider2;
+	private JButton buttonAccueil;
 	
 	public FenetreAccueilSpectacle() throws BLLException, DALException {
 
@@ -39,16 +40,15 @@ public class FenetreAccueilSpectacle extends JFrame {
 		setLocationRelativeTo(null);
 		setSize(800, 800);
 		setResizable(false);
-		setTitle("RÃ©servation spectacle");
+		setTitle("Réservation spectacle");
 		this.toolbar = new JMenuBar();
-		JButton accueil = new JButton("Accueil");
+		JButton accueil = this.getButtonAccueil();
 		this.toolbar.add(accueil);
-		JButton reservations = new JButton("RÃ©servations");
+		JButton reservations = new JButton("Réservations");
 		this.toolbar.add(reservations);
 		JButton clients = new JButton("Clients");
 		this.toolbar.add(clients);
 		this.setJMenuBar(this.toolbar);
-//		initListeSpectacle();
 		setVisible(true);
 	}
 
@@ -189,7 +189,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		panel2.add(new JLabel("PrÃ©nom : "), gbc);
+		panel2.add(new JLabel("Prénom : "), gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 2;
@@ -348,7 +348,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridheight = 2;
 		 if(SpectacleManager.getInstance().spectacleDispo(spectacle) == true){
 		//if (dispoOuReserv == true) {
-			btn = new JButton("RÃ©servations");
+			btn = new JButton("Réservations");
 			btn.addActionListener(new ActionListener() {
 
 				@Override
@@ -378,7 +378,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 
 	public JLabel getLabelReservation() {
 		if (this.labelReservation == null) {
-			this.labelReservation = new JLabel("RÃ©servation");
+			this.labelReservation = new JLabel("Réservation");
 			this.labelReservation.setFont(new Font("Serif", Font.PLAIN, 35));
 		}
 		return this.labelReservation;
@@ -463,4 +463,28 @@ public class FenetreAccueilSpectacle extends JFrame {
 		}
 		return this.buttonValider2;
 	}
+	
+	public JButton getButtonAccueil(){
+		if (this.buttonAccueil == null) {
+			this.buttonAccueil = new JButton("Accueil");
+			this.buttonAccueil.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					try {
+						Controller.getInstance().startApp();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+		}
+		return this.buttonAccueil;
+	}
+	
 }
