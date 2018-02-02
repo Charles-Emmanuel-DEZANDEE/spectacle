@@ -85,7 +85,7 @@ public class ClientManager {
 	
 	public void removeClient(int  idClient) throws BLLException{
 		try {
-			daoClient.delete(idClient);
+			((ClientDAOJdbcImpl) daoClient).delete(idClient);
 		} catch (DALException e) {
 			throw new BLLException("Echec de la suppression du client - ", e);
 		}

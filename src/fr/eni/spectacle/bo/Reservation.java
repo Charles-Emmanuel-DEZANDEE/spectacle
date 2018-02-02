@@ -3,13 +3,13 @@ package fr.eni.spectacle.bo;
 import java.sql.Date;
 
 public class Reservation {
-	private int codeReservation;
+	private String codeReservation;
 	private int idSpectacle;
 	private int clientId;
 	private int nombrePlaces;
 	private Date dateReservation ;
 	
-	public Reservation(int codeReservation,  int idSpectacle,int clientId,
+	public Reservation(String codeReservation,  int idSpectacle,int clientId,
 			int nombrePlaces ) {
 		this.codeReservation= codeReservation;
 		this.idSpectacle = idSpectacle;
@@ -17,19 +17,19 @@ public class Reservation {
 		this.nombrePlaces = nombrePlaces;
 	}
 	
-	public Reservation(int code_reservation, int idSpectacle, int clientId,
+	public Reservation(String code_reservation, int idSpectacle, int clientId,
 					   int nombrePlaces, Date date_reservation) {
 		this.idSpectacle = idSpectacle;
 		this.clientId = clientId;
 		this.nombrePlaces = nombrePlaces;
 	}
 
-	public int getCodeReservation() {
+	public String getCodeReservation() {
 		return codeReservation;
 	}
 
 
-	public void setCodeReservation(int codeReservation) {
+	public void setCodeReservation(String codeReservation) {
 		this.codeReservation = codeReservation;
 	}
 

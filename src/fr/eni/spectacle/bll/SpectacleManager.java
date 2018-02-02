@@ -96,7 +96,7 @@ public class SpectacleManager {
 	
 	public void removeSpectacle(int  idSpectacle) throws BLLException{
 		try {
-			daoSpectalce.delete(idSpectacle);
+			((StectacleDAOJdbcImpl) daoSpectalce).delete(idSpectacle);
 		} catch (DALException e) {
 			throw new BLLException("Echec de la suppression du spectacle - ", e);
 		}

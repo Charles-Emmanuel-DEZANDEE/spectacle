@@ -6,8 +6,9 @@ import fr.eni.spectacle.bo.Client;
 import fr.eni.spectacle.bo.Reservation;
 import fr.eni.spectacle.bo.Spectacle;
 import fr.eni.spectacle.dal.DALException;
-import fr.eni.spectacle.dal.Dao;
 import fr.eni.spectacle.dal.DAOFactory;
+import fr.eni.spectacle.dal.Dao;
+import fr.eni.spectacle.dal.ReservationDAOJdbcImpl;
 
 public class ReservationManager {
 	private static Dao<Reservation> daoReservation;
@@ -93,9 +94,9 @@ public class ReservationManager {
 		}
 	}
 	
-	public void removeReservation(int  idReservation, int idClient) throws BLLException{
+	public void removeReservation(String  idReservation) throws BLLException{
 		try {
-			daoReservation.delete(idReservation);
+			((ReservationDAOJdbcImpl)daoReservation).delete(idReservation);
 
 		} catch (DALException e) {
 			throw new BLLException("Echec de la suppression de la reservation - ", e);

@@ -93,8 +93,8 @@ public class ReservationDAOJdbcImpl implements Dao{
             Date actuelle = new Date();
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMddss");
             String dat = dateFormat.format(actuelle);
-            String temp = dat + fin;
-            int code = Integer.valueOf(temp);
+            String temp = String.valueOf(System.nanoTime());
+            String code = SHA.sha256(temp);
 
             r1.setCodeReservation(code);
 
@@ -103,7 +103,7 @@ public class ReservationDAOJdbcImpl implements Dao{
 
 
             Date now = new Date(6510,11,01);
-            stmt.setInt(1,code);//"code_reservation,
+            stmt.setString(1,code);//"code_reservation,
             stmt.setInt(2,r1.getIdSpectacle());//"spectacle_id,
             stmt.setInt(3,r1.getClientId());//"client_id,
             stmt.setInt(4, r1.getNombrePlaces());//"nombre_places,\
@@ -129,7 +129,7 @@ public Reservation selectById(int id) throws DALException {
         Reservation data = null;
 
          if (res.next()){
-                data = new Reservation(res.getInt("code_reservation"),res.getInt("spectacle_id"),res.getInt("client_id"),res.getInt("nombre_places"),res.getDate("date_reservation"));
+                data = new Reservation(res.getString("code_reservation"),res.getInt("spectacle_id"),res.getInt("client_id"),res.getInt("nombre_places"),res.getDate("date_reservation"));
         //on ferme les connections
         stmt.close();
         //connect.close();
@@ -153,7 +153,7 @@ public Reservation selectById(int id) throws DALException {
             List<Reservation> data = new ArrayList<>();
             while (res.next()){
                 //data.add(this.selectById(res.getInt("id")));
-                    data.add(new Reservation(res.getInt("code_reservation"),res.getInt("spectacle_id"),res.getInt("client_id"),res.getInt("nombre_places"),res.getDate("date_reservation")));
+                    data.add(new Reservation(res.getString("code_reservation"),res.getInt("spectacle_id"),res.getInt("client_id"),res.getInt("nombre_places"),res.getDate("date_reservation")));
 
             }
 
@@ -186,7 +186,7 @@ public Reservation selectById(int id) throws DALException {
             stmt.setInt(2,r1.getClientId());//"client_id,
             stmt.setInt(3,r1.getNombrePlaces());//"nombre_places,
             stmt.setDate(4, r1.getDateReservation());//"date_reservation,\
-            stmt.setInt(5,r1.getCodeReservation());//"code_reservation,
+            stmt.setString(5,r1.getCodeReservation());//"code_reservation,
 
 
 // on update
@@ -206,12 +206,12 @@ public Reservation selectById(int id) throws DALException {
 
     }
 
-    public void delete(int id) throws DALException {
+    public void delete(String id) throws DALException {
         try {
         String sql = "DELETE FROM RESERVATION WHERE code_reservation = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
 
-        stmt.setInt(1,id);//"reference,
+        stmt.setString(1,id);//"reference,
 
         stmt.executeUpdate();
             //on ferme les connections

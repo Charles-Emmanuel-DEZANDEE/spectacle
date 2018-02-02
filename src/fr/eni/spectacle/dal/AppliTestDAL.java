@@ -1,6 +1,8 @@
 package fr.eni.spectacle.dal;
 
 
+import fr.eni.spectacle.bo.Client;
+import fr.eni.spectacle.bo.Reservation;
 import fr.eni.spectacle.bo.Spectacle;
 
 import java.sql.Date;
@@ -20,7 +22,16 @@ public class AppliTestDAL {
 		Spectacle a2 = new Spectacle(  "test 1","johny", "paris", new Date(118,05,23), 150);
 		Spectacle a3 = new Spectacle( "test 2","acdc", "lille", new Date(119,01,20), 200);
 
-
+		Client c1 = new Client("DEZANDEe", "Charles", "charles.manu@sigma.fr", 
+				"derriere l'eglise", "44800", "nantes");
+		Client c2 = new Client("DEZANDEe", "Charles", "charles.manu@sigma.fr", 
+				"derriere l'eglise", "44800", "nantes");
+		Client c3 = new Client("DEZANDEe", "Charles", "charles.manu@sigma.fr", 
+				"derriere l'eglise", "44800", "nantes");
+		
+		//Reservation r1 = new Reservation(idSpectacle, clientId, nombrePlaces, date_reservation);
+		
+		
 		System.out.println("Ajout des articles... ");
 		//TODO...
 		try {
