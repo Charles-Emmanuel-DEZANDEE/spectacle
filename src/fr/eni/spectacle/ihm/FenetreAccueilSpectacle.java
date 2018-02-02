@@ -147,7 +147,13 @@ public class FenetreAccueilSpectacle extends JFrame {
 		setContentPane( scroll );	
 		}
 	
-	public void initListeReservations()throws BLLException, DALException{
+
+	public void initListeReservation() throws BLLException, DALException{
+		List<Reservation> listeReservations = ReservationManager.getInstance().getReservations();
+		getListeReservations(listeReservations);
+	}
+
+	public void getListeReservations(List<Reservation> listeReservations)throws BLLException, DALException{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -161,7 +167,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		
 		// boucle qui ajoute des panels
 		int index = 1;
-		for(Map.Entry<Reservation, JPanel> entry : getListPanelReservation().entrySet()) {
+		for(Map.Entry<Reservation, JPanel> entry : getListPanelReservation(listeReservations).entrySet()) {
 			//Reservation cle = entry.getKey();
 			JPanel valeur = entry.getValue();
 			// traitements
@@ -422,11 +428,26 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 0;	
 		panelClient.add(new JLabel(client.getPrenom() + " " + client.getNom() + " / " + client.getEmail()), gbc);
+
+		btnReservation = new JButton("R�servation");
+		btnReservation.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Controller.getInstance().afficherReservation(client.getIdClient());
+				} catch (DALException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (BLLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		panelClient.add(new JButton("R�servations"));
-		gbc.gridx = 2;
-		gbc.gridy = 0;
+		panelClient.add(btnReservation, gbc);
 		
 		btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
@@ -444,25 +465,9 @@ public class FenetreAccueilSpectacle extends JFrame {
 				}
 			}
 		});
+		gbc.gridx = 2;
+		gbc.gridy = 0;
 		panelClient.add(btnSupprimer, gbc);
-		
-		btnReservation = new JButton("R�servation");
-		btnReservation.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					Controller.getInstance().supprimerClient(client);
-				} catch (DALException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (BLLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		panelClient.add(btnReservation, gbc);
 
 		return panelClient;
 	}
@@ -513,10 +518,10 @@ public class FenetreAccueilSpectacle extends JFrame {
 		return panelSpectacle;
 	}
 	
-	public Map<Reservation, JPanel> getListPanelReservation() throws BLLException, DALException {
+	public Map<Reservation, JPanel> getListPanelReservation(List<Reservation> listeReservations ) throws BLLException, DALException {
 		Map<Reservation, JPanel> listeJLabelReservation = new HashMap<>();
 		//on récuprére la liste
-		List<Reservation> listeReservations = ReservationManager.getInstance().getReservations();
+
 		for (Reservation reservation : listeReservations) {
 			listeJLabelReservation.put(reservation, getPanelReservation(reservation));
 		}

@@ -38,7 +38,7 @@ public class Controller {
 	}
 	
 	public void listeReservations() throws BLLException, DALException{
-		fenetreSpectacle.initListeReservations();
+		fenetreSpectacle.initListeReservation();
 		fenetreSpectacle.revalidate();
 		fenetreSpectacle.repaint();
 	}
@@ -48,6 +48,11 @@ public class Controller {
 		fenetreSpectacle.revalidate();
 		fenetreSpectacle.repaint();
     }
+   
+   public void afficherReservation(int idClient) throws BLLException, DALException{
+	  List<Reservation> listeReservations = ReservationManager.getInstance().getReservationByIdClient(idClient);
+	  
+   }
 
    public void supprimerClient(Client client) throws BLLException, DALException{
 	   	int idClient = client.getIdClient();
