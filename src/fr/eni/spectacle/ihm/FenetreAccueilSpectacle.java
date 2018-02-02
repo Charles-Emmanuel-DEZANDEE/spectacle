@@ -153,7 +153,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		getListeReservations(listeReservations);
 	}
 	
-	public void getListeReservations(List<Reservation> listeReservationsInitiales)throws BLLException, DALException{
+	public void getListeReservations(List<Reservation> listeReservations)throws BLLException, DALException{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -167,7 +167,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		
 		// boucle qui ajoute des panels
 		int index = 1;
-		for(Map.Entry<Reservation, JPanel> entry : getListPanelReservation(listeReservationsInitiales).entrySet()) {
+		for(Map.Entry<Reservation, JPanel> entry : getListPanelReservation(listeReservations).entrySet()) {
 			//Reservation cle = entry.getKey();
 			JPanel valeur = entry.getValue();
 			// traitements
