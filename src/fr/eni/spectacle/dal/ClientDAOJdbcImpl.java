@@ -104,7 +104,7 @@ public Client selectById(int id) throws DALException {
 
 
             ResultSet res = stmt.executeQuery();
-//on boucle sur les résultats
+            //on boucle sur les résultats
             List<Client> data = new ArrayList<>();
             while (res.next()){
                 //data.add(this.selectById(res.getInt("id")));

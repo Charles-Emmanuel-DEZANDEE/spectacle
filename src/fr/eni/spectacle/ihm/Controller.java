@@ -48,7 +48,15 @@ public class Controller {
 		fenetreSpectacle.revalidate();
 		fenetreSpectacle.repaint();
     }
-	
+
+   public void supprimerClient(Client client) throws BLLException, DALException{
+	   	int idClient = client.getIdClient();
+	   	ClientManager.getInstance().removeClient(idClient);
+		fenetreSpectacle.initListeClients();
+		fenetreSpectacle.revalidate();
+		fenetreSpectacle.repaint();
+    }
+   
 	public void nouvelleReservation(Spectacle spectacle){
 		fenetreSpectacle.initReservation(spectacle);
 		fenetreSpectacle.revalidate();
