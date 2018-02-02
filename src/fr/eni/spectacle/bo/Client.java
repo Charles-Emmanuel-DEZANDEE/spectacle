@@ -118,4 +118,12 @@ public class Client {
 		this.ville = ville;
 	}
 
+	@Override
+	public String toString() {
+		return "Client{" +
+				", nom='" + nom + '\'' +
+				", prenom='" + prenom + '\'' +
+				", email='" + email + '\'' +
+				'}';
+	}
 }

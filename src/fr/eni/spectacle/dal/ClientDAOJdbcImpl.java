@@ -16,7 +16,7 @@ public class ClientDAOJdbcImpl implements Dao{
         //connections à la base de donnée
 
         this.connect = ConnectionSingleton.getConnection().getConnect();
-        
+
     }
 
 
