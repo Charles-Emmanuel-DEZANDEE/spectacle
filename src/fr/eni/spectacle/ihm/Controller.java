@@ -37,6 +37,18 @@ public class Controller {
 		fenetreSpectacle.repaint();
 	}
 	
+	public void listeReservations() throws BLLException, DALException{
+		fenetreSpectacle.initListeReservations();
+		fenetreSpectacle.revalidate();
+		fenetreSpectacle.repaint();
+	}
+	
+   public void listeClients() throws BLLException, DALException{
+		fenetreSpectacle.initListeClients();
+		fenetreSpectacle.revalidate();
+		fenetreSpectacle.repaint();
+    }
+	
 	public void nouvelleReservation(Spectacle spectacle){
 		fenetreSpectacle.initReservation(spectacle);
 		fenetreSpectacle.revalidate();
@@ -69,14 +81,4 @@ public class Controller {
 	    //remplissage des champs de la reservation
 
     }
-
-    public void listeDesResvations(){
-
-    }
-
-    public void listeDesClients(){
-
-    }
-
-
 }

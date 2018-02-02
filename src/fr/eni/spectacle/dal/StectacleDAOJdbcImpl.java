@@ -102,7 +102,7 @@ public Spectacle selectById(int id) throws DALException {
 
     public List<Spectacle> selectByArtiste(String artiste)throws DALException{
         try{
-            String sql = "SELECT * FROM SPECTACLE WHERE artiste LIKE ?";
+            String sql = "SELECT * FROM SPECTACLE WHERE artiste LIKE ? ORDER by date ASC";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
             stmt.setString(1,artiste.trim());//"reference,
@@ -133,7 +133,7 @@ public Spectacle selectById(int id) throws DALException {
 
     public List<Spectacle> selectAll() throws DALException {
         try{
-            String sql = "SELECT * FROM SPECTACLE";
+            String sql = "SELECT * FROM SPECTACLE ORDER by date ASC";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
 

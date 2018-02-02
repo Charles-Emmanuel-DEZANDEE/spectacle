@@ -33,20 +33,24 @@ public class FenetreAccueilSpectacle extends JFrame {
 	private JComboBox<String> cboClients;
 	private JButton buttonValider2;
 	private JButton buttonAccueil;
+	private JButton buttonClients;
+	private JButton buttonReservations;
+	private JLabel labelListeReservations;
+	private JLabel labelListeClients;
 	
 	public FenetreAccueilSpectacle() throws BLLException, DALException {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setSize(800, 800);
+		setSize(600, 600);
 		setResizable(false);
 		setTitle("Réservation spectacle");
 		this.toolbar = new JMenuBar();
 		JButton accueil = this.getButtonAccueil();
 		this.toolbar.add(accueil);
-		JButton reservations = new JButton("Réservations");
+		JButton reservations = this.getButtonReservations();
 		this.toolbar.add(reservations);
-		JButton clients = new JButton("Clients");
+		JButton clients = this.getButtonClients();
 		this.toolbar.add(clients);
 		this.setJMenuBar(this.toolbar);
 		setVisible(true);
@@ -92,8 +96,8 @@ public class FenetreAccueilSpectacle extends JFrame {
 		setContentPane(panel);
 		//scoll barre
 		Container c = getContentPane();
-		JScrollPane scroll = new JScrollPane( c );
-		setContentPane( scroll );	}
+		JScrollPane scroll = new JScrollPane(c);
+		setContentPane(scroll);	}
 
 	public void ListeSpectacleByArtiste(String artiste) throws BLLException, DALException {
 		JPanel panel = new JPanel();
@@ -133,10 +137,50 @@ public class FenetreAccueilSpectacle extends JFrame {
 			index ++;
 		}
 		setContentPane(panel);
-		//scoll barre
+		//scroll barre
 		Container c = getContentPane();
 		JScrollPane scroll = new JScrollPane( c );
-		setContentPane( scroll );	}
+		setContentPane( scroll );	
+		}
+	
+	public void initListeReservations()throws BLLException, DALException{
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		
+		//Ligne 1
+		gbc.gridwidth = 0;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panel.add(this.getLabelListeReservations(), gbc);
+		
+		setContentPane(panel);
+		//scroll barre
+		Container c = getContentPane();
+		JScrollPane scroll = new JScrollPane(c);
+		setContentPane(scroll);
+	}
+	
+	public void initListeClients()throws BLLException, DALException{
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		
+		//Ligne 1
+		gbc.gridwidth = 0;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panel.add(this.getLabelListeClients(), gbc);
+		
+		setContentPane(panel);
+		//scroll barre
+		Container c = getContentPane();
+		JScrollPane scroll = new JScrollPane(c);
+		setContentPane(scroll);
+	}
+
 
 	public void initReservation(Spectacle spectacle) {
 		JPanel panel = new JPanel();
@@ -374,14 +418,28 @@ public class FenetreAccueilSpectacle extends JFrame {
 		return panelSpectacle;
 	}
 
-	// initReservation
-
 	public JLabel getLabelReservation() {
 		if (this.labelReservation == null) {
 			this.labelReservation = new JLabel("Réservation");
 			this.labelReservation.setFont(new Font("Serif", Font.PLAIN, 35));
 		}
 		return this.labelReservation;
+	}
+	
+	public JLabel getLabelListeReservations() {
+		if (this.labelListeReservations == null) {
+			this.labelListeReservations = new JLabel("Réservations");
+			this.labelListeReservations.setFont(new Font("Serif", Font.PLAIN, 35));
+		}
+		return this.labelListeReservations;
+	}
+	
+	public JLabel getLabelListeClients() {
+		if (this.labelListeClients == null) {
+			this.labelListeClients = new JLabel("Clients");
+			this.labelListeClients.setFont(new Font("Serif", Font.PLAIN, 35));
+		}
+		return this.labelListeClients;
 	}
 
 	public JTextField getFieldNom() {
@@ -487,4 +545,49 @@ public class FenetreAccueilSpectacle extends JFrame {
 		return this.buttonAccueil;
 	}
 	
+	public JButton getButtonReservations(){
+		if (this.buttonReservations == null) {
+			this.buttonReservations = new JButton("Réservations");
+			this.buttonReservations.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					try {
+						Controller.getInstance().listeReservations();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+		}
+		return this.buttonReservations;
+	}
+	
+	public JButton getButtonClients(){
+		if (this.buttonClients == null) {
+			this.buttonClients = new JButton("Clients");
+			this.buttonClients.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					try {
+						Controller.getInstance().listeClients();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+		}
+		return this.buttonClients;
+	}
 }
