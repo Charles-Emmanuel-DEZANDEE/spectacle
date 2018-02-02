@@ -52,7 +52,7 @@ public class AppliTestDAL {
 			
 			//Suppression d'un article
 			System.out.println("\nSuppression de l'article  : " + a1.toString());
-			stectacleDAO.delete(a1.getIdSpectacle());
+			//stectacleDAO.delete(a1.getIdSpectacle());
             spectacles = stectacleDAO.selectAll();
 			System.out.println("Liste des articles après suppression : "  );
 			afficherArticles(spectacles);
