@@ -67,9 +67,9 @@ public class ReservationManager {
 	}
 
 	public void addReservation(Reservation newReservation) throws BLLException {
-		if(newReservation.getIdSpectacle()!= 0){
-			throw new BLLException("Reservation deja existant.");
-		}
+//		if(newReservation.getIdSpectacle()!= 0){
+//			throw new BLLException("Reservation deja existant.");
+//		}
 		try {
 			//on valide la reservation
 			this.validerReservation(newReservation);

@@ -57,7 +57,7 @@ public class Controller {
 		fenetreSpectacle.repaint();
     }
    
-	public void nouvelleReservation(Spectacle spectacle){
+	public void nouvelleReservation(Spectacle spectacle) throws BLLException, DALException {
 		fenetreSpectacle.initReservation(spectacle);
 		fenetreSpectacle.revalidate();
 		fenetreSpectacle.repaint();
@@ -91,18 +91,22 @@ public class Controller {
 
         //on créé une reservation
         Reservation newReservation = new Reservation(idSpectacle,idClient,
-        (Integer) fenetreSpectacle.getCboPlaces().getSelectedItem());
+        Integer.valueOf(fenetreSpectacle.getCboPlaces().getSelectedItem().toString()));
 
         ReservationManager.getInstance().addReservation(newReservation);
 
 
         this.nouveauClient= true;
 
+        this.listeReservations();
+
     }
 
-    public void utiliserClientExistant(Spectacle spectacle, Client client){
+    public void utiliserClientExistant(Spectacle spectacle) throws BLLException, DALException {
 	    this.nouveauClient= false;
 	    //remplissage des champs de la reservation
+
+        Client client = (Client) fenetreSpectacle.getCboClients().getSelectedItem();
 
         fenetreSpectacle.getFieldNom().setText(client.getNom());
         fenetreSpectacle.getFielPrenom().setText(client.getPrenom());
