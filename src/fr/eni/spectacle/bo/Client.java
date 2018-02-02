@@ -120,10 +120,7 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client{" +
-				", nom='" + nom + '\'' +
-				", prenom='" + prenom + '\'' +
-				", email='" + email + '\'' +
-				'}';
+		return  nom + ' ' + prenom
+				;
 	}
 }

@@ -32,7 +32,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	private JTextField fieldVille;
 	private JButton buttonValider;
 	private JComboBox<String> cboPlaces;
-	private JComboBox<String> cboClients;
+	private JComboBox cboClients;
 	private JButton buttonValider2;
 	private JButton buttonAccueil;
 	private JButton buttonClients;
@@ -47,7 +47,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		setLocationRelativeTo(null);
 		setSize(600, 600);
 		setResizable(false);
-		setTitle("Réservation spectacle");
+		setTitle("Rï¿½servation spectacle");
 		this.toolbar = new JMenuBar();
 		JButton accueil = this.getButtonAccueil();
 		this.toolbar.add(accueil);
@@ -147,12 +147,12 @@ public class FenetreAccueilSpectacle extends JFrame {
 		setContentPane( scroll );	
 		}
 	
-	
+
 	public void initListeReservation() throws BLLException, DALException{
 		List<Reservation> listeReservations = ReservationManager.getInstance().getReservations();
 		getListeReservations(listeReservations);
 	}
-	
+
 	public void getListeReservations(List<Reservation> listeReservations)throws BLLException, DALException{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -217,7 +217,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	}
 
 
-	public void initReservation(Spectacle spectacle) {
+	public void initReservation(Spectacle spectacle) throws BLLException, DALException {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		JPanel panel2 = new JPanel();
@@ -268,7 +268,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		panel2.add(new JLabel("Prénom : "), gbc);
+		panel2.add(new JLabel("Prï¿½nom : "), gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 2;
@@ -316,7 +316,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		
 		gbc.gridx = 1;
 		gbc.gridy = 8;
-		panel2.add(this.getButtonValider(), gbc);
+		panel2.add(this.getButtonValider(spectacle), gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 3;
@@ -333,7 +333,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		
 		gbc.gridx = 1;
 		gbc.gridy = 2;
-		panel3.add(this.getButtonValider2(), gbc);
+		panel3.add(this.getButtonValider2(spectacle), gbc);
 		
 		setContentPane(panel);
 	}
@@ -387,7 +387,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 
 	public Map<Spectacle, JPanel> getListPanelSpectacle() throws BLLException, DALException {
 		Map<Spectacle, JPanel> listeJLabelSpectacle = new HashMap<>();
-		//On récupère la liste :
+		//On rï¿½cupï¿½re la liste :
 		List<Spectacle> listeSpectacle = SpectacleManager.getInstance().getSpectacles();
 		for (Spectacle spectacle : listeSpectacle) {
 			listeJLabelSpectacle.put(spectacle, getPanelSpectacle(spectacle));
@@ -398,7 +398,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	public Map<Spectacle, JPanel> getListPanelSpectacleByArtiste(String artiste) throws BLLException, DALException {
 		Map<Spectacle, JPanel> listeJLabelSpectacle = new HashMap<>();
 
-		//On récupère la liste :
+		//On rï¿½cupï¿½re la liste :
 		List<Spectacle> listeSpectacle = SpectacleManager.getInstance().getSpectacleByArtiste(artiste);
 		for (Spectacle spectacle : listeSpectacle) {
 			listeJLabelSpectacle.put(spectacle, getPanelSpectacle(spectacle));
@@ -408,7 +408,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	
 	public Map<Client, JPanel> getListPanelClient() throws BLLException, DALException {
 		Map<Client, JPanel> listeJLabelClient = new HashMap<>();
-		//On récupère la liste :
+		//On rï¿½cupï¿½re la liste :
 		List<Client> listeClient = ClientManager.getInstance().getClients();
 		for (Client client : listeClient) {
 			listeJLabelClient.put(client, getPanelClient(client));
@@ -430,7 +430,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridy = 0;	
 		panelClient.add(new JLabel(client.getPrenom() + " " + client.getNom() + " / " + client.getEmail()), gbc);
 
-		btnReservation = new JButton("Réservation");
+		btnReservation = new JButton("Rï¿½servation");
 		btnReservation.addActionListener(new ActionListener() {
 			
 			@Override
@@ -493,7 +493,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridheight = 2;
 		if(SpectacleManager.getInstance().spectacleDispo(spectacle) == true){
 		//if (dispoOuReserv == true) {
-			btn = new JButton("Réservations");
+			btn = new JButton("Rï¿½servations");
 			btn.addActionListener(new ActionListener() {
 
 				@Override
@@ -522,7 +522,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	public Map<Reservation, JPanel> getListPanelReservation(List<Reservation> listeReservations ) throws BLLException, DALException {
 		Map<Reservation, JPanel> listeJLabelReservation = new HashMap<>();
 		//on rÃ©cuprÃ©re la liste
-		
+
 		for (Reservation reservation : listeReservations) {
 			listeJLabelReservation.put(reservation, getPanelReservation(reservation));
 		}
@@ -572,7 +572,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 
 	public JLabel getLabelReservation() {
 		if (this.labelReservation == null) {
-			this.labelReservation = new JLabel("Réservation");
+			this.labelReservation = new JLabel("Rï¿½servation");
 			this.labelReservation.setFont(new Font("Serif", Font.PLAIN, 35));
 		}
 		return this.labelReservation;
@@ -580,7 +580,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	
 	public JLabel getLabelListeReservations() {
 		if (this.labelListeReservations == null) {
-			this.labelListeReservations = new JLabel("Réservations");
+			this.labelListeReservations = new JLabel("Rï¿½servations");
 			this.labelListeReservations.setFont(new Font("Serif", Font.PLAIN, 35));
 		}
 		return this.labelListeReservations;
@@ -636,18 +636,28 @@ public class FenetreAccueilSpectacle extends JFrame {
 		return this.fieldVille;
 	}
 	
-	public JButton getButtonValider(){
+	public JButton getButtonValider(Spectacle spectacle){
 		if (this.buttonValider == null) {
 			this.buttonValider = new JButton("Valider");
-			
 			this.buttonValider.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					
+					try {
+						Controller.getInstance().enregistrerReservation(spectacle);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+
 				}
 			});
+
 		}
 		return this.buttonValider;
 	}
@@ -660,15 +670,16 @@ public class FenetreAccueilSpectacle extends JFrame {
 		return cboPlaces;
 	}
 	
-	public JComboBox<String> getCboClients() {
+	public JComboBox<String> getCboClients() throws BLLException, DALException {
 		if (cboClients == null) {
-			String[] listeclient = {"test", "test1", "test2"};
-			cboClients = new JComboBox<String>(listeclient);
+//			String[] listeclient = ClientManager.getInstance().getClients();
+			cboClients = new JComboBox(ClientManager.getInstance().getClients().toArray());
 		}
 		return cboClients;
 	}
-	
-	public JButton getButtonValider2(){
+	/**
+	 * utilisation d'une client existant*/
+	public JButton getButtonValider2(Spectacle spectacle){
 		if (this.buttonValider2 == null) {
 			this.buttonValider2 = new JButton("Valider");
 			this.buttonValider2.addActionListener(new ActionListener() {
@@ -676,7 +687,17 @@ public class FenetreAccueilSpectacle extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					
+					try {
+						Controller.getInstance().utiliserClientExistant(spectacle);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+
 				}
 			});
 		}
@@ -708,7 +729,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	
 	public JButton getButtonReservations(){
 		if (this.buttonReservations == null) {
-			this.buttonReservations = new JButton("Réservations");
+			this.buttonReservations = new JButton("Rï¿½servations");
 			this.buttonReservations.addActionListener(new ActionListener() {
 				
 				@Override
