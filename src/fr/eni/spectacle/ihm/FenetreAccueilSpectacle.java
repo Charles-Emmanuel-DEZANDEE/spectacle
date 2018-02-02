@@ -209,10 +209,11 @@ public class FenetreAccueilSpectacle extends JFrame {
 			index ++;
 		}
 		
+		
+		setContentPane(panel);
 		Container c = getContentPane();
 		JScrollPane scroll = new JScrollPane(c);
 		setContentPane(scroll);
-		setContentPane(panel);
 	}
 
 

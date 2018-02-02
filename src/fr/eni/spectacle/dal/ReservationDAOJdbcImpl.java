@@ -135,37 +135,6 @@ public Reservation selectById(int id) throws DALException {
         }
     }
 
-
-    public List<Reservation> selectByIdClient(int idClient) throws DALException {
-        try{
-            String sql = "SELECT * FROM RESERVATION WHERE client_id = ?";
-
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
-
-            stmt.setInt(1,idClient);//"reference,
-
-
-
-            ResultSet res = stmt.executeQuery();
-            //on boucle sur les résultats
-            List<Reservation> data = new ArrayList<>();
-            while (res.next()){
-                //data.add(this.selectById(res.getInt("id")));
-                data.add(new Reservation(res.getString("code_reservation"),res.getInt("spectacle_id"),res.getInt("client_id"),res.getInt("nombre_places"),res.getDate("date_reservation")));
-            }
-
-
-            //on ferme les connections
-            stmt.close();
-            //connect.close();
-
-            return data;
-
-        } catch (SQLException e) {
-            throw new DALException(e.getMessage());
-        }
-
-    }
     public List<Reservation> selectAll() throws DALException {
         try{
             String sql = "SELECT * FROM RESERVATION";
@@ -175,9 +144,12 @@ public Reservation selectById(int id) throws DALException {
             ResultSet res = stmt.executeQuery();
             //on boucle sur les résultats
             List<Reservation> data = new ArrayList<>();
+            int i = 0;
             while (res.next()){
                 //data.add(this.selectById(res.getInt("id")));
                     data.add(new Reservation(res.getString("code_reservation"),res.getInt("spectacle_id"),res.getInt("client_id"),res.getInt("nombre_places"),res.getDate("date_reservation")));
+                    System.out.println(data.get(i).getCodeReservation());
+                    i++;
             }
             
 
@@ -244,10 +216,46 @@ public Reservation selectById(int id) throws DALException {
 
         } catch (SQLException e) {
         throw new DALException(e.getMessage());
-    }
+	    }
+	}
+    
+    public void deleteByIdClient(String idClient) throws DALException {
+        try {
+        String sql = "DELETE FROM RESERVATION WHERE client_id = ?";
+        PreparedStatement stmt = this.connect.prepareStatement(sql);
 
-}
-public void finalize() throws SQLException {
-    connect.close();
-}
+        stmt.setString(1,idClient);//"reference,
+
+        stmt.executeUpdate();
+            //on ferme les connections
+            stmt.close();
+            //connect.close();
+
+
+        } catch (SQLException e) {
+        throw new DALException(e.getMessage());
+        }
+    }
+    
+    public void deleteByIdSpectacle(String idSpectacle) throws DALException {
+        try {
+        String sql = "DELETE FROM RESERVATION WHERE spectacle_id = ?";
+        PreparedStatement stmt = this.connect.prepareStatement(sql);
+
+        stmt.setString(1,idSpectacle);//"reference,
+
+        stmt.executeUpdate();
+            //on ferme les connections
+            stmt.close();
+            //connect.close();
+
+
+        } catch (SQLException e) {
+        throw new DALException(e.getMessage());
+        }
+    }
+        
+	public void finalize() throws SQLException {
+	    connect.close();
+	}
 }

@@ -190,6 +190,7 @@ public Spectacle selectById(int id) throws DALException {
 
     public void delete(int id) throws DALException {
         try {
+        // TODO supprimer toutes ses reservations avant
         String sql = "DELETE FROM SPECTACLE WHERE id = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
 

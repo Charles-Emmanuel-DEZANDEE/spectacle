@@ -195,6 +195,8 @@ public Client selectById(int id) throws DALException {
 
     public void delete(int id) throws DALException {
         try {
+        // TODO supprimer toutes ses reservations avant 
+        	
         String sql = "DELETE FROM CLIENT WHERE id = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
 
