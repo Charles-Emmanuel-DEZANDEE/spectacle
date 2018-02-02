@@ -48,6 +48,10 @@ public class Controller {
 		fenetreSpectacle.revalidate();
 		fenetreSpectacle.repaint();
     }
+   
+   public void afficherReservation(int idClient) throws BLLException, DALException{
+	   // ReservationManager.getInstance()
+   }
 
    public void supprimerClient(Client client) throws BLLException, DALException{
 	   	int idClient = client.getIdClient();
