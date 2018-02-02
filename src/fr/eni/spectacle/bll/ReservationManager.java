@@ -54,23 +54,26 @@ public class ReservationManager {
 		return reservations;
 	}
 	
-	public void addReservation(Reservation newReservation, Client client, boolean nouveauClient) throws BLLException {
+	public List<Reservation> getReservationByIdClient(int idClient) throws BLLException{
+		List<Reservation> reservations=new ArrayList<>();
+		try {
+			reservations = ((ReservationDAOJdbcImpl)daoReservation).selectByIdClient(idClient);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur r?cup?ration reservations", e);
+		}
+
+		return reservations;
+	}
+
+	public void addReservation(Reservation newReservation) throws BLLException {
 		if(newReservation.getIdSpectacle()!= 0){
 			throw new BLLException("Reservation deja existant.");
 		}
 		try {
-			//on valide la reservation et client
-			ClientManager.getInstance().validerClient(client);
+			//on valide la reservation
 			this.validerReservation(newReservation);
 
-			//on ajoute le client si c'est un nouveau
-            if (nouveauClient) {
-                ClientManager.getInstance().addClient(client);
-            }
-            //on le met à jour s'il y a eu des modifs
-			else {
-                ClientManager.getInstance().updateClient(client);
-            }
 
         // on ajoute la reservation
 			daoReservation.insert(newReservation);

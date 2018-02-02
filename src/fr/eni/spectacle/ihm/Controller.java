@@ -87,9 +87,13 @@ public class Controller {
         }
 
         // recupérer les champs avec get
+
+
         //on créé une reservation
         Reservation newReservation = new Reservation(idSpectacle,idClient,
         (Integer) fenetreSpectacle.getCboPlaces().getSelectedItem());
+
+        ReservationManager.getInstance().addReservation(newReservation);
 
 
         this.nouveauClient= true;
