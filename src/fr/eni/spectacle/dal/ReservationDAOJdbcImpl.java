@@ -219,12 +219,12 @@ public Reservation selectById(int id) throws DALException {
 	    }
 	}
     
-    public void deleteByIdClient(String idClient) throws DALException {
+    public void deleteByIdClient(int idClient) throws DALException {
         try {
         String sql = "DELETE FROM RESERVATION WHERE client_id = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
 
-        stmt.setString(1,idClient);//"reference,
+        stmt.setInt(1,idClient);//"reference,
 
         stmt.executeUpdate();
             //on ferme les connections
@@ -237,12 +237,12 @@ public Reservation selectById(int id) throws DALException {
         }
     }
     
-    public void deleteByIdSpectacle(String idSpectacle) throws DALException {
+    public void deleteByIdSpectacle(int idSpectacle) throws DALException {
         try {
         String sql = "DELETE FROM RESERVATION WHERE spectacle_id = ?";
         PreparedStatement stmt = this.connect.prepareStatement(sql);
 
-        stmt.setString(1,idSpectacle);//"reference,
+        stmt.setInt(1,idSpectacle);//"reference,
 
         stmt.executeUpdate();
             //on ferme les connections
@@ -258,4 +258,35 @@ public Reservation selectById(int id) throws DALException {
 	public void finalize() throws SQLException {
 	    connect.close();
 	}
+	
+	public List<Reservation> selectByIdClient(int idClient) throws DALException {
+        try{
+            String sql = "SELECT * FROM RESERVATION WHERE client_id = ?";
+
+            PreparedStatement stmt = this.connect.prepareStatement(sql);
+
+            stmt.setInt(1,idClient);//"reference,
+
+
+
+            ResultSet res = stmt.executeQuery();
+            //on boucle sur les résultats
+            List<Reservation> data = new ArrayList<>();
+            while (res.next()){
+                //data.add(this.selectById(res.getInt("id")));
+                data.add(new Reservation(res.getString("code_reservation"),res.getInt("spectacle_id"),res.getInt("client_id"),res.getInt("nombre_places"),res.getDate("date_reservation")));
+            }
+
+
+            //on ferme les connections
+            stmt.close();
+            //connect.close();
+
+            return data;
+
+        } catch (SQLException e) {
+            throw new DALException(e.getMessage());
+        }
+
+    }
 }

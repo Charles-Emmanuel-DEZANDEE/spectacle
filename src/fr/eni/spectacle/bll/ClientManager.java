@@ -1,20 +1,26 @@
 package fr.eni.spectacle.bll;
 
-import fr.eni.spectacle.bo.Client;
-import fr.eni.spectacle.bo.Spectacle;
-import fr.eni.spectacle.dal.*;
-
 import java.util.List;
+
+import fr.eni.spectacle.bo.Client;
+import fr.eni.spectacle.bo.Reservation;
+import fr.eni.spectacle.dal.ClientDAOJdbcImpl;
+import fr.eni.spectacle.dal.DALException;
+import fr.eni.spectacle.dal.DAOFactory;
+import fr.eni.spectacle.dal.Dao;
+import fr.eni.spectacle.dal.ReservationDAOJdbcImpl;
 
 public class ClientManager {
 
 	private static Dao<Client> daoClient;
+	private static Dao<Reservation> daoReservation;
 	private static ClientManager instance;
 
 
 	private ClientManager() throws DALException, BLLException {
 		//Instancier le Data Access Object
 		daoClient =DAOFactory.getClientDAO();
+		daoReservation= DAOFactory.getReservationDAO();
 	}
 	
 	public static ClientManager getInstance() throws BLLException, DALException{
@@ -85,6 +91,8 @@ public class ClientManager {
 	
 	public void removeClient(int  idClient) throws BLLException{
 		try {
+			// supprimer d'abord ses reservations
+			((ReservationDAOJdbcImpl)daoReservation).deleteByIdClient(idClient);
 			((ClientDAOJdbcImpl) daoClient).delete(idClient);
 		} catch (DALException e) {
 			throw new BLLException("Echec de la suppression du client - ", e);

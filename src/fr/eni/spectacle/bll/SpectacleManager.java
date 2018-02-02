@@ -2,21 +2,25 @@ package fr.eni.spectacle.bll;
 
 import java.util.List;
 
+import fr.eni.spectacle.bo.Reservation;
 import fr.eni.spectacle.bo.Spectacle;
 import fr.eni.spectacle.dal.DALException;
 import fr.eni.spectacle.dal.Dao;
+import fr.eni.spectacle.dal.ReservationDAOJdbcImpl;
 import fr.eni.spectacle.dal.DAOFactory;
 import fr.eni.spectacle.dal.StectacleDAOJdbcImpl;
 
 public class SpectacleManager {
 
 	private static Dao<Spectacle> daoSpectalce;
+	private static Dao<Reservation> daoReservation;
 	private static SpectacleManager instance;
 	
 	
 	private SpectacleManager() throws DALException, BLLException {
 		//Instancier le Data Access Object
 		daoSpectalce =DAOFactory.getSpectacleDAO();
+		daoReservation= DAOFactory.getReservationDAO();
 	}
 	
 	public static SpectacleManager getInstance() throws BLLException, DALException{
@@ -96,6 +100,8 @@ public class SpectacleManager {
 	
 	public void removeSpectacle(int  idSpectacle) throws BLLException{
 		try {
+			// supprimer d'abord ses reservations
+			((ReservationDAOJdbcImpl)daoReservation).deleteByIdClient(idSpectacle);
 			((StectacleDAOJdbcImpl) daoSpectalce).delete(idSpectacle);
 		} catch (DALException e) {
 			throw new BLLException("Echec de la suppression du spectacle - ", e);
