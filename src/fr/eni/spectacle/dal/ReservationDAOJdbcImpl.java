@@ -142,14 +142,13 @@ public Reservation selectById(int id) throws DALException {
 
 
             ResultSet res = stmt.executeQuery();
-//on boucle sur les résultats
+            //on boucle sur les résultats
             List<Reservation> data = new ArrayList<>();
             while (res.next()){
                 //data.add(this.selectById(res.getInt("id")));
                     data.add(new Reservation(res.getString("code_reservation"),res.getInt("spectacle_id"),res.getInt("client_id"),res.getInt("nombre_places"),res.getDate("date_reservation")));
-
             }
-
+            
 
             //on ferme les connections
             stmt.close();

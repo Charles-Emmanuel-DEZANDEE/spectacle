@@ -109,7 +109,6 @@ public class Controller {
     
     public void removeReservation(Reservation reservation) throws BLLException, DALException{
     	try {
-    		System.out.println(reservation.getCodeReservation());
     		ReservationManager.getInstance().removeReservation(reservation.getCodeReservation());
 		} catch (DALException e1) {
 			// TODO Auto-generated catch block
