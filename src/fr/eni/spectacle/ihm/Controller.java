@@ -61,15 +61,25 @@ public class Controller {
 		fenetreSpectacle.repaint();
 	}
 
-	public void enregistrerReservation(){
+	public void enregistrerReservation(int idSpectacle) throws BLLException, DALException {
 	    //traitement
+        int idClient;
+
         if (this.nouveauClient){
             //création d'un client
+			Client newClient = new Client(fenetreSpectacle.getFieldNom().getText(),fenetreSpectacle.getFielPrenom().getText(), fenetreSpectacle.getFieldEmail().getText(),fenetreSpectacle.getFieldAdresse().getText(),fenetreSpectacle.getFieldCP().getText(),fenetreSpectacle.getFieldVille().getText());
+			ClientManager.getInstance().addClient(newClient);
+            idClient = newClient.getIdClient();
+        }
+        else{
+
+            idClient =0;
         }
 
         // recupérer les champs avec get
         //on créé une reservation
-
+Reservation newReservation = new Reservation(idSpectacle,idClient,
+        (Integer) fenetreSpectacle.getCboPlaces().getSelectedItem());
 
 
         this.nouveauClient= true;

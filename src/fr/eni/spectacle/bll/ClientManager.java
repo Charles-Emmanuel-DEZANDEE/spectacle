@@ -12,7 +12,7 @@ public class ClientManager {
 	private static ClientManager instance;
 
 
-	public ClientManager() throws DALException {
+	private ClientManager() throws DALException, BLLException {
 		//Instancier le Data Access Object
 		daoClient =DAOFactory.getClientDAO();
 	}
