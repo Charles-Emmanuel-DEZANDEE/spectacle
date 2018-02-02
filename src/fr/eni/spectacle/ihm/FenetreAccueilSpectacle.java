@@ -21,6 +21,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	private JTextField fieldRechercherArtiste;
 	private JButton buttonRechercherArtiste;
 	private JPanel panelSpectacle;
+	private JPanel panelClient;
 	private JLabel labelReservation;
 	private JTextField fieldNom;
 	private JTextField fieldPrenom;
@@ -97,7 +98,8 @@ public class FenetreAccueilSpectacle extends JFrame {
 		//scoll barre
 		Container c = getContentPane();
 		JScrollPane scroll = new JScrollPane(c);
-		setContentPane(scroll);	}
+		setContentPane(scroll);	
+		}
 
 	public void ListeSpectacleByArtiste(String artiste) throws BLLException, DALException {
 		JPanel panel = new JPanel();
@@ -174,11 +176,21 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridy = 0;
 		panel.add(this.getLabelListeClients(), gbc);
 		
-		setContentPane(panel);
-		//scroll barre
+		//Boucle qui ajoute les panels
+		int index = 1;
+		for(Map.Entry<Client, JPanel> entry : getListPanelClient().entrySet()) {
+			JPanel valeur = entry.getValue();
+			gbc.gridwidth = 2;
+			gbc.gridx = 0;
+			gbc.gridy = index;
+			panel.add(valeur, gbc);
+			index ++;
+		}
+		
 		Container c = getContentPane();
 		JScrollPane scroll = new JScrollPane(c);
 		setContentPane(scroll);
+		setContentPane(panel);
 	}
 
 
@@ -352,26 +364,73 @@ public class FenetreAccueilSpectacle extends JFrame {
 
 	public Map<Spectacle, JPanel> getListPanelSpectacle() throws BLLException, DALException {
 		Map<Spectacle, JPanel> listeJLabelSpectacle = new HashMap<>();
-//on rÃ©cuprÃ©re la liste
+		//On récupère la liste :
 		List<Spectacle> listeSpectacle = SpectacleManager.getInstance().getSpectacles();
 		for (Spectacle spectacle : listeSpectacle) {
 			listeJLabelSpectacle.put(spectacle, getPanelSpectacle(spectacle));
 		}
-
 		return listeJLabelSpectacle;
 	}
-
+	
 	public Map<Spectacle, JPanel> getListPanelSpectacleByArtiste(String artiste) throws BLLException, DALException {
 		Map<Spectacle, JPanel> listeJLabelSpectacle = new HashMap<>();
-//on rÃ©cuprÃ©re la liste
+		//On récupère la liste :
 		List<Spectacle> listeSpectacle = SpectacleManager.getInstance().getSpectacleByArtiste(artiste);
 		for (Spectacle spectacle : listeSpectacle) {
 			listeJLabelSpectacle.put(spectacle, getPanelSpectacle(spectacle));
 		}
-
 		return listeJLabelSpectacle;
 	}
-
+	
+	public Map<Client, JPanel> getListPanelClient() throws BLLException, DALException {
+		Map<Client, JPanel> listeJLabelClient = new HashMap<>();
+		//On récupère la liste :
+		List<Client> listeClient = ClientManager.getInstance().getClients();
+		for (Client client : listeClient) {
+			listeJLabelClient.put(client, getPanelClient(client));
+		}
+		return listeJLabelClient;
+	}
+	
+	public JPanel getPanelClient(Client client) throws BLLException, DALException {
+		
+		JButton btnSupprimer = null;
+		
+		panelClient = new JPanel();
+		panelClient.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.gridwidth = 2;
+		gbc.gridx = 0;
+		gbc.gridy = 0;	
+		panelClient.add(new JLabel(client.getPrenom() + " " + client.getNom() + " / " + client.getEmail()), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		panelClient.add(new JButton("Réservations"));
+		gbc.gridx = 2;
+		gbc.gridy = 0;
+		panelClient.add(new JButton("Supprimer"));
+		
+		btnSupprimer = new JButton("Supprimer");
+		btnSupprimer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Controller.getInstance().supprimerClient(client);
+				} catch (DALException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (BLLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		return panelClient;
+	}
+	
 	public JPanel getPanelSpectacle(Spectacle spectacle) throws BLLException, DALException {
 		JButton btn = null;
 		// pour l'instant

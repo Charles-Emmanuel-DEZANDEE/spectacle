@@ -81,4 +81,12 @@ public class Controller {
 	    //remplissage des champs de la reservation
 
     }
+    
+    public void supprimerClient(Client client) throws BLLException, DALException{
+    	int idClient = client.getIdClient();
+    	ClientManager.getInstance().removeClient(idClient);
+    	fenetreSpectacle.initListeClients();
+		fenetreSpectacle.revalidate();
+		fenetreSpectacle.repaint();
+    }
 }
