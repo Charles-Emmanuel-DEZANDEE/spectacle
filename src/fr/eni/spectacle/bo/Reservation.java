@@ -9,9 +9,8 @@ public class Reservation {
 	private int nombrePlaces;
 	private Date dateReservation ;
 	
-	public Reservation(int codeReservation,  int idSpectacle,int clientId,
+	public Reservation(int idSpectacle,int clientId,
 			int nombrePlaces ) {
-		this.codeReservation= codeReservation;
 		this.idSpectacle = idSpectacle;
 		this.clientId = clientId;
 		this.nombrePlaces = nombrePlaces;
