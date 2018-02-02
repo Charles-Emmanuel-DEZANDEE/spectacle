@@ -22,6 +22,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	private JButton buttonRechercherArtiste;
 	private JPanel panelSpectacle;
 	private JPanel panelClient;
+	private JPanel panelReservation;
 	private JLabel labelReservation;
 	private JTextField fieldNom;
 	private JTextField fieldPrenom;
@@ -156,6 +157,20 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panel.add(this.getLabelListeReservations(), gbc);
+		
+		// boucle qui ajoute des panels
+		int index = 1;
+		for(Map.Entry<Reservation, JPanel> entry : getListPanelReservation().entrySet()) {
+			//Reservation cle = entry.getKey();
+			JPanel valeur = entry.getValue();
+			// traitements
+			gbc.gridwidth = 3;
+			gbc.gridx = 0;
+			gbc.gridy = index;
+
+			panel.add(valeur,gbc);
+			index ++;
+		}
 		
 		setContentPane(panel);
 		//scroll barre
@@ -374,6 +389,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 	
 	public Map<Spectacle, JPanel> getListPanelSpectacleByArtiste(String artiste) throws BLLException, DALException {
 		Map<Spectacle, JPanel> listeJLabelSpectacle = new HashMap<>();
+
 		//On récupère la liste :
 		List<Spectacle> listeSpectacle = SpectacleManager.getInstance().getSpectacleByArtiste(artiste);
 		for (Spectacle spectacle : listeSpectacle) {
@@ -449,7 +465,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		gbc.gridheight = 2;
-		 if(SpectacleManager.getInstance().spectacleDispo(spectacle) == true){
+		if(SpectacleManager.getInstance().spectacleDispo(spectacle) == true){
 		//if (dispoOuReserv == true) {
 			btn = new JButton("Réservations");
 			btn.addActionListener(new ActionListener() {
@@ -475,6 +491,57 @@ public class FenetreAccueilSpectacle extends JFrame {
 			panelSpectacle.add(btn, gbc);
 		}
 		return panelSpectacle;
+	}
+	
+	public Map<Reservation, JPanel> getListPanelReservation() throws BLLException, DALException {
+		Map<Reservation, JPanel> listeJLabelReservation = new HashMap<>();
+		//on rÃ©cuprÃ©re la liste
+		List<Reservation> listeReservations = ReservationManager.getInstance().getReservations();
+		for (Reservation reservation : listeReservations) {
+			listeJLabelReservation.put(reservation, getPanelReservation(reservation));
+		}
+
+		return listeJLabelReservation;
+	}
+	
+	public JPanel getPanelReservation(Reservation reservation) throws BLLException, DALException {
+		JButton btn = null;
+		// pour l'instant
+		//boolean dispoOuReserv = true;
+		panelReservation = new JPanel();
+		panelReservation.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panelReservation.add(new JLabel(SpectacleManager.getInstance().getSpectacleById((reservation.getIdSpectacle())).getArtiste() + ", " + SpectacleManager.getInstance().getSpectacleById((reservation.getIdSpectacle())).getTitre()), gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		panelReservation.add(new JLabel(SpectacleManager.getInstance().getSpectacleById((reservation.getIdSpectacle())).getLieu() + " / " + SpectacleManager.getInstance().getSpectacleById((reservation.getIdSpectacle())).getDate()), gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.gridheight = 2;
+			btn = new JButton("Annuler");
+			btn.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						ReservationManager.getInstance().removeReservation(reservation.getCodeReservation());
+						
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+			panelReservation.add(btn, gbc);
+		
+		return panelReservation;
 	}
 
 	public JLabel getLabelReservation() {

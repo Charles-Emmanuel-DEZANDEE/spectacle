@@ -61,24 +61,48 @@ public class Controller {
 		fenetreSpectacle.repaint();
 	}
 
-	public void enregistrerReservation(){
+	public void enregistrerReservation(Spectacle spectacle) throws BLLException, DALException {
 	    //traitement
+        int idClient;
+        int idSpectacle = spectacle.getIdSpectacle();
+
         if (this.nouveauClient){
             //création d'un client
+			Client newClient = new Client(fenetreSpectacle.getFieldNom().getText(),fenetreSpectacle.getFielPrenom().getText(), fenetreSpectacle.getFieldEmail().getText(),fenetreSpectacle.getFieldAdresse().getText(),fenetreSpectacle.getFieldCP().getText(),fenetreSpectacle.getFieldVille().getText());
+			ClientManager.getInstance().addClient(newClient);
+            idClient = newClient.getIdClient();
+        }
+        else{
+
+             Client clientChoisi = (Client) fenetreSpectacle.getCboClients().getSelectedItem();
+            idClient = clientChoisi.getIdClient();
         }
 
         // recupérer les champs avec get
         //on créé une reservation
-
-
+        Reservation newReservation = new Reservation(idSpectacle,idClient,
+        (Integer) fenetreSpectacle.getCboPlaces().getSelectedItem());
 
         this.nouveauClient= true;
 
     }
 
-    public void utiliserClientExistant(Client client){
+    public void utiliserClientExistant(Spectacle spectacle, Client client){
 	    this.nouveauClient= false;
 	    //remplissage des champs de la reservation
+
+        fenetreSpectacle.getFieldNom().setText(client.getNom());
+        fenetreSpectacle.getFielPrenom().setText(client.getPrenom());
+        fenetreSpectacle.getFieldAdresse().setText(client.getAdresse());
+        fenetreSpectacle.getFieldEmail().setText(client.getEmail());
+        fenetreSpectacle.getFieldCP().setText(client.getCodePostal());
+        fenetreSpectacle.getFieldVille().setText(client.getVille());
+
+        //on affiche la même page remplie
+
+        fenetreSpectacle.initReservation(spectacle);
+        fenetreSpectacle.revalidate();
+        fenetreSpectacle.repaint();
 
     }
     

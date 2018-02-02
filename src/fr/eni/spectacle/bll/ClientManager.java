@@ -12,7 +12,7 @@ public class ClientManager {
 	private static ClientManager instance;
 
 
-	public ClientManager() throws DALException {
+	private ClientManager() throws DALException, BLLException {
 		//Instancier le Data Access Object
 		daoClient =DAOFactory.getClientDAO();
 	}
@@ -85,7 +85,7 @@ public class ClientManager {
 	
 	public void removeClient(int  idClient) throws BLLException{
 		try {
-			daoClient.delete(idClient);
+			((ClientDAOJdbcImpl) daoClient).delete(idClient);
 		} catch (DALException e) {
 			throw new BLLException("Echec de la suppression du client - ", e);
 		}

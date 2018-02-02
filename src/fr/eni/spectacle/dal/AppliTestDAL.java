@@ -1,6 +1,7 @@
 package fr.eni.spectacle.dal;
 
 
+import fr.eni.spectacle.bll.BLLException;
 import fr.eni.spectacle.bo.Spectacle;
 
 import java.sql.Date;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class AppliTestDAL {
 
-	public static void main(String[] args) throws DALException {
+	public static void main(String[] args) throws DALException, BLLException {
 
 		//Déclaration et instanciation de la DAO
 		Dao<Spectacle> stectacleDAO = DAOFactory.getSpectacleDAO();
