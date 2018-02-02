@@ -50,7 +50,8 @@ public class Controller {
     }
    
    public void afficherReservation(int idClient) throws BLLException, DALException{
-	   // ReservationManager.getInstance()
+	  List<Reservation> listeReservations = ReservationManager.getInstance().getReservationByIdClient(idClient);
+	  
    }
 
    public void supprimerClient(Client client) throws BLLException, DALException{

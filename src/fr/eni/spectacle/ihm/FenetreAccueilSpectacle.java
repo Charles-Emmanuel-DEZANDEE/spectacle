@@ -632,6 +632,15 @@ public class FenetreAccueilSpectacle extends JFrame {
 	public JButton getButtonValider(){
 		if (this.buttonValider == null) {
 			this.buttonValider = new JButton("Valider");
+			
+			this.buttonValider.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 		}
 		return this.buttonValider;
 	}
