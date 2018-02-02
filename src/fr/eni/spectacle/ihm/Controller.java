@@ -78,7 +78,7 @@ public class Controller {
 
         // recupérer les champs avec get
         //on créé une reservation
-Reservation newReservation = new Reservation(idSpectacle,idClient,
+        Reservation newReservation = new Reservation(idSpectacle,idClient,
         (Integer) fenetreSpectacle.getCboPlaces().getSelectedItem());
 
 
@@ -91,4 +91,18 @@ Reservation newReservation = new Reservation(idSpectacle,idClient,
 	    //remplissage des champs de la reservation
 
     }
+    
+    public void removeReservation(Reservation reservation) throws BLLException, DALException{
+    	try {
+    		System.out.println(reservation.getCodeReservation());
+    		ReservationManager.getInstance().removeReservation(reservation.getCodeReservation());
+		} catch (DALException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (BLLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    }
+    
 }

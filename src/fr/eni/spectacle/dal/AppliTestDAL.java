@@ -2,6 +2,8 @@ package fr.eni.spectacle.dal;
 
 
 import fr.eni.spectacle.bll.BLLException;
+import fr.eni.spectacle.bo.Client;
+import fr.eni.spectacle.bo.Reservation;
 import fr.eni.spectacle.bo.Spectacle;
 
 import java.sql.Date;
@@ -14,14 +16,28 @@ public class AppliTestDAL {
 
 		//Déclaration et instanciation de la DAO
 		Dao<Spectacle> stectacleDAO = DAOFactory.getSpectacleDAO();
-
+		Dao<Client> clientDAO = DAOFactory.getClientDAO();
+		Dao<Reservation> reservationDAO = DAOFactory.getReservationDAO();
+		
+		
 		//Instanciation du jeu d'essai
 		//Calendar today = new Calendar();
 		Spectacle a1 = new Spectacle( "star","garou", "nantes", new Date(118,05,23), 150);
 		Spectacle a2 = new Spectacle(  "test 1","johny", "paris", new Date(118,05,23), 150);
 		Spectacle a3 = new Spectacle( "test 2","acdc", "lille", new Date(119,01,20), 200);
 
+		Client c1 = new Client("cha", "ee", "aaaa", "dddd", "41000", "ffff");
+		Client c2 = new Client("cha", "ee", "aaaa", "dddd", "41000", "ffff");
+		Client c3 = new Client("cha", "ee", "aaaa", "dddd", "41000", "ffff");
 
+		try {
+			clientDAO.insert(c1);
+			clientDAO.insert(c2);
+			clientDAO.insert(c3);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}	
+		
 		System.out.println("Ajout des articles... ");
 		//TODO...
 		try {
@@ -63,6 +79,18 @@ public class AppliTestDAL {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
+		
+		Reservation r1 = new Reservation(a1.getIdSpectacle(), c1.getIdClient(), 5);
+		Reservation r2 = new Reservation(a2.getIdSpectacle(), c2.getIdClient(), 5);
+		Reservation r3 = new Reservation(a3.getIdSpectacle(), c3.getIdClient(), 5);
+		
+		try {
+			reservationDAO.insert(r1);
+			reservationDAO.insert(r2);
+			reservationDAO.insert(r3);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}	
 
 	}
 

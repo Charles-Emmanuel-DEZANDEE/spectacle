@@ -27,8 +27,8 @@ public class ClientDAOJdbcImpl implements Dao{
             String sql = "INSERT INTO CLIENT (" +
                     "nom," +//nom
                     "prenom," + //prenom
-                    "lieu," + //email VARCHAR
-                    "email," +//adresse TEXT
+                    "email," + //email VARCHAR
+                    "adresse," +//adresse TEXT
                     "code_postal," + //code_postal CHAR(5)
                     "ville" +  //ville VARCHAR(200)
                     ")" +

@@ -468,8 +468,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						ReservationManager.getInstance().removeReservation(reservation.getCodeReservation());
-						
+						Controller.getInstance().removeReservation(reservation);
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

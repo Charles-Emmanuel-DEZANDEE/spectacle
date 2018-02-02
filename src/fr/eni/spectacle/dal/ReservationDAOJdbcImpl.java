@@ -86,13 +86,14 @@ public class ReservationDAOJdbcImpl implements Dao{
             DateFormat dateFormat = new SimpleDateFormat("yyyyMMddss");
             String dat = dateFormat.format(actuelle);
             String temp = String.valueOf(System.nanoTime());
-            String code = SHA.sha256(temp);
-
+            String code = SHA.sha256(temp).substring(0, 19);
+            
             r1.setCodeReservation(code);
 
             //date du jour
             java.sql.Date sqlDate = new java.sql.Date(actuelle.getTime());
 
+            System.out.println(r1);
 
             Date now = new Date(6510,11,01);
             stmt.setString(1,code);//"code_reservation,
