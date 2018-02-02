@@ -1,5 +1,6 @@
 package fr.eni.spectacle.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.spectacle.bo.Client;
@@ -123,6 +124,6 @@ public class ReservationManager {
 		}
 
 	}
-
+	
 
 }
