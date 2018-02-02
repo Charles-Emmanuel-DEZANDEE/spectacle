@@ -93,9 +93,9 @@ public class ReservationManager {
 		}
 	}
 	
-	public void removeReservation(int  idReservation, int idClient) throws BLLException{
+	public void removeReservation(int  codeReservation) throws BLLException{
 		try {
-			daoReservation.delete(idReservation);
+			daoReservation.delete(codeReservation);
 
 		} catch (DALException e) {
 			throw new BLLException("Echec de la suppression de la reservation - ", e);
