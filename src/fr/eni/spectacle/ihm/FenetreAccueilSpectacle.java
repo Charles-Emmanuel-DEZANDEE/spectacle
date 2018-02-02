@@ -549,6 +549,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						Controller.getInstance().removeReservation(reservation);
+						Controller.getInstance().listeReservations();
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

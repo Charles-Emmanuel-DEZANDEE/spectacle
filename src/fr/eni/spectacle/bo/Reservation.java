@@ -18,6 +18,7 @@ public class Reservation {
 	
 	public Reservation(String code_reservation, int idSpectacle, int clientId,
 					   int nombrePlaces, Date date_reservation) {
+		this.codeReservation = code_reservation;
 		this.idSpectacle = idSpectacle;
 		this.clientId = clientId;
 		this.nombrePlaces = nombrePlaces;
