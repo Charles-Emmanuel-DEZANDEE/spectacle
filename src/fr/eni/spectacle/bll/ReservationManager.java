@@ -1,5 +1,6 @@
 package fr.eni.spectacle.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.spectacle.bo.Client;
@@ -53,6 +54,18 @@ public class ReservationManager {
 		return reservations;
 	}
 	
+	public List<Reservation> getReservationByIdClient(int idClient) throws BLLException{
+		List<Reservation> reservations=new ArrayList<>();
+		try {
+			reservations = ((ReservationDAOJdbcImpl)daoReservation).selectByIdClient(idClient);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur r?cup?ration reservations", e);
+		}
+
+		return reservations;
+	}
+
 	public void addReservation(Reservation newReservation, Client client, boolean nouveauClient) throws BLLException {
 		if(newReservation.getIdSpectacle()!= 0){
 			throw new BLLException("Reservation deja existant.");
