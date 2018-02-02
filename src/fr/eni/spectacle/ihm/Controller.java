@@ -83,6 +83,7 @@ public class Controller {
         Reservation newReservation = new Reservation(idSpectacle,idClient,
         (Integer) fenetreSpectacle.getCboPlaces().getSelectedItem());
 
+
         this.nouveauClient= true;
 
     }
@@ -106,11 +107,17 @@ public class Controller {
 
     }
     
-    public void supprimerClient(Client client) throws BLLException, DALException{
-    	int idClient = client.getIdClient();
-    	ClientManager.getInstance().removeClient(idClient);
-    	fenetreSpectacle.initListeClients();
-		fenetreSpectacle.revalidate();
-		fenetreSpectacle.repaint();
+    public void removeReservation(Reservation reservation) throws BLLException, DALException{
+    	try {
+    		System.out.println(reservation.getCodeReservation());
+    		ReservationManager.getInstance().removeReservation(reservation.getCodeReservation());
+		} catch (DALException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (BLLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     }
+    
 }
