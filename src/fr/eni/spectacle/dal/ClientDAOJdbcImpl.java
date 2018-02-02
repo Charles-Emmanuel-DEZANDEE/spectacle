@@ -1,8 +1,8 @@
 package fr.eni.spectacle.dal;
 
 
+import fr.eni.spectacle.bll.BLLException;
 import fr.eni.spectacle.bo.Client;
-import fr.eni.spectacle.bo.Spectacle;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,23 +10,13 @@ import java.util.List;
 
 public class ClientDAOJdbcImpl implements Dao{
 
-    private  Connection connect;
+    private Connection connect;
 
-    public ClientDAOJdbcImpl() throws DALException {
+    public ClientDAOJdbcImpl() throws DALException, BLLException {
         //connections à la base de donnée
 
-        try {
-            Class.forName(Settings.getProperty("driverDB"));
-            //DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
-
-
-            String url = Settings.getProperty("urldb");
-            this.connect = DriverManager.getConnection(url, Settings.getProperty("userdb"),Settings.getProperty("passworddb"));
-        } catch (SQLException e) {
-            throw new DALException(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new DALException(e.getMessage());
-        }
+        this.connect = ConnectionSingleton.getConnection().getConnect();
+        
     }
 
 

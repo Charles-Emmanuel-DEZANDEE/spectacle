@@ -14,7 +14,7 @@ public class SpectacleManager {
 	private static SpectacleManager instance;
 	
 	
-	public SpectacleManager() throws DALException {
+	private SpectacleManager() throws DALException, BLLException {
 		//Instancier le Data Access Object
 		daoSpectalce =DAOFactory.getSpectacleDAO();
 	}

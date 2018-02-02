@@ -2,6 +2,7 @@ package fr.eni.spectacle.dal;
 
 
 
+import fr.eni.spectacle.bll.BLLException;
 import fr.eni.spectacle.bo.Reservation;
 import fr.eni.spectacle.bo.Spectacle;
 
@@ -15,23 +16,14 @@ import java.util.Random;
 
 public class ReservationDAOJdbcImpl implements Dao{
 
-    private  Connection connect;
+    private Connection connect;
 
-    public ReservationDAOJdbcImpl() throws DALException {
+    public ReservationDAOJdbcImpl() throws DALException, BLLException {
         //connections à la base de donnée
 
-        try {
-            Class.forName(Settings.getProperty("driverDB"));
-            //DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
+        this.connect = ConnectionSingleton.getConnection().getConnect();
 
 
-            String url = Settings.getProperty("urldb");
-            this.connect = DriverManager.getConnection(url, Settings.getProperty("userdb"),Settings.getProperty("passworddb"));
-        } catch (SQLException e) {
-            throw new DALException(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new DALException(e.getMessage());
-        }
     }
 
     public int nombrePlaceReserves(Spectacle spec) throws DALException {

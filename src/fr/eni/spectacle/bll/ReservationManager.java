@@ -14,7 +14,7 @@ public class ReservationManager {
 	private static Dao<Spectacle> daoSpectacle;
 	private static ReservationManager instance;
 	
-	public ReservationManager() throws DALException {
+	private ReservationManager() throws DALException, BLLException {
 		//Instancierr le Data Access Object
 		daoReservation =DAOFactory.getReservationDAO();
 		daoSpectacle = DAOFactory.getSpectacleDAO();
