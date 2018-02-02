@@ -147,7 +147,13 @@ public class FenetreAccueilSpectacle extends JFrame {
 		setContentPane( scroll );	
 		}
 	
-	public void initListeReservations()throws BLLException, DALException{
+	
+	public void initListeReservation() throws BLLException, DALException{
+		List<Reservation> listeReservations = ReservationManager.getInstance().getReservations();
+		getListeReservations(listeReservations);
+	}
+	
+	public void getListeReservations(List<Reservation> listeReservationsInitiales)throws BLLException, DALException{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -161,7 +167,7 @@ public class FenetreAccueilSpectacle extends JFrame {
 		
 		// boucle qui ajoute des panels
 		int index = 1;
-		for(Map.Entry<Reservation, JPanel> entry : getListPanelReservation().entrySet()) {
+		for(Map.Entry<Reservation, JPanel> entry : getListPanelReservation(listeReservationsInitiales).entrySet()) {
 			//Reservation cle = entry.getKey();
 			JPanel valeur = entry.getValue();
 			// traitements
@@ -512,10 +518,10 @@ public class FenetreAccueilSpectacle extends JFrame {
 		return panelSpectacle;
 	}
 	
-	public Map<Reservation, JPanel> getListPanelReservation() throws BLLException, DALException {
+	public Map<Reservation, JPanel> getListPanelReservation(List<Reservation> listeReservations ) throws BLLException, DALException {
 		Map<Reservation, JPanel> listeJLabelReservation = new HashMap<>();
 		//on récuprére la liste
-		List<Reservation> listeReservations = ReservationManager.getInstance().getReservations();
+		
 		for (Reservation reservation : listeReservations) {
 			listeJLabelReservation.put(reservation, getPanelReservation(reservation));
 		}
