@@ -38,7 +38,7 @@ public class Controller {
 	}
 	
 	public void listeReservations() throws BLLException, DALException{
-		fenetreSpectacle.initListeReservations();
+		fenetreSpectacle.getListeReservations();
 		fenetreSpectacle.revalidate();
 		fenetreSpectacle.repaint();
 	}
